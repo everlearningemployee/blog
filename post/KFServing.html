@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>KFServing | [공부하는 회사원] 빨강달</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="KFServing" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Kubeflow Serving Solution" />
+<meta property="og:description" content="Kubeflow Serving Solution" />
+<link rel="canonical" href="https://everlearningemployee.github.io/blog/post/KFServing.html" />
+<meta property="og:url" content="https://everlearningemployee.github.io/blog/post/KFServing.html" />
+<meta property="og:site_name" content="[공부하는 회사원] 빨강달" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-15T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="KFServing" />
+<script type="application/ld+json">
+{"url":"https://everlearningemployee.github.io/blog/post/KFServing.html","@type":"BlogPosting","headline":"KFServing","dateModified":"2020-05-15T00:00:00-05:00","datePublished":"2020-05-15T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://everlearningemployee.github.io/blog/post/KFServing.html"},"description":"Kubeflow Serving Solution","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://everlearningemployee.github.io/blog/feed.xml" title="[공부하는 회사원] 빨강달" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">[공부하는 회사원] 빨강달</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">KFServing</h1><p class="page-description">Kubeflow Serving Solution</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-05-15T00:00:00-05:00" itemprop="datePublished">
+        May 15, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#Kubeflow">Kubeflow</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#MLServing">MLServing</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#MLOps">MLOps</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#kfserving이란">KFServing이란</a></li>
+<li class="toc-entry toc-h2"><a href="#1-inferenceservice">1. InferenceService</a></li>
+<li class="toc-entry toc-h2"><a href="#2-inferenceservice-구성요소">2. InferenceService 구성요소</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#21-predictor">2.1 Predictor</a></li>
+<li class="toc-entry toc-h3"><a href="#22-transformer">2.2 Transformer</a></li>
+<li class="toc-entry toc-h3"><a href="#23-explainer">2.3 Explainer</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#3-inferenceservice-배포">3. InferenceService 배포</a></li>
+<li class="toc-entry toc-h2"><a href="#4-inferenceservice-구성요소-유형">4. InferenceService 구성요소 유형</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#41-out-of-the-box-predictor">4.1 Out-of-the-box Predictor</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#411-tensorflow-예제">4.1.1 tensorflow 예제</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#4111-manifests-tensorflowyaml">4.1.1.1 manifests: tensorflow.yaml</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h4"><a href="#412-pytorch-예제">4.1.2 pytorch 예제</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#4121-manifests-pytorchyaml">4.1.2.1 manifests: pytorch.yaml</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#42-custom-predictor">4.2 Custom Predictor</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#421-flask-hello-world-예제">4.2.1 Flask Hello World 예제</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#4211-manifests-customyaml">4.2.1.1 manifests: custom.yaml</a></li>
+<li class="toc-entry toc-h5"><a href="#4212-dockerfile">4.2.1.2 Dockerfile</a></li>
+<li class="toc-entry toc-h5"><a href="#4213-application-apppy">4.2.1.3 application: app.py</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h4"><a href="#422-kfserving-custom-model-예제">4.2.2 kfserving-custom-model 예제</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#4221-manifests-customyaml">4.2.2.1 manifests: custom.yaml</a></li>
+<li class="toc-entry toc-h5"><a href="#4222-dockerfile">4.2.2.2 Dockerfile</a></li>
+<li class="toc-entry toc-h5"><a href="#4223-application-modelpy">4.2.2.3 application: model.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#43-transformer">4.3 Transformer</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#431-image-transformer-with-pytorch-predictor-예제">4.3.1 Image Transformer with PyTorch Predictor 예제</a>
+<ul>
+<li class="toc-entry toc-h5"><a href="#4311-manifests-image_transformeryaml">4.3.1.1 manifests: image_transformer.yaml</a></li>
+<li class="toc-entry toc-h5"><a href="#4312-dockerfile">4.3.1.2 Dockerfile</a></li>
+<li class="toc-entry toc-h5"><a href="#4313-application-image_transformerpy">4.3.1.3 application: image_transformer.py</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#5--kfserving-python-sdk">5.  KFServing Python SDK</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#51-model--server">5.1 Model / Server</a></li>
+<li class="toc-entry toc-h3"><a href="#52-client">5.2 Client</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#참고1-tensorflow-model을-save하는-방법">참고1: TensorFlow Model을 Save하는 방법</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#체크포인트">체크포인트</a></li>
+<li class="toc-entry toc-h3"><a href="#hdf5-hierarchical-data-format">HDF5 (Hierarchical Data Format)</a></li>
+<li class="toc-entry toc-h3"><a href="#tensorflow-savedmodel">TensorFlow SavedModel</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#참고2-seldon-core-inference-graphpipeline">참고2: Seldon Core Inference Graph(Pipeline)</a></li>
+</ul><h2 id="kfserving이란">
+<a class="anchor" href="#kfserving%EC%9D%B4%EB%9E%80" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://www.kubeflow.org/docs/components/serving/kfserving/">KFServing이란</a>
+</h2>
+
+<ul>
+  <li>Kubernetes <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">Custom Resource Definition(CRD)</a> 으로 제공되는 ML Serving 아키텍처</li>
+  <li>Serverless로 동작 (내부적으로 Knative 사용)</li>
+</ul>
+
+<p><img src="https://www.kubeflow.org/docs/components/serving/kfserving.png" alt="KFServing"></p>
+
+<h2 id="1-inferenceservice">
+<a class="anchor" href="#1-inferenceservice" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. InferenceService</h2>
+
+<p><img src="https://github.com/kubeflow/kfserving/raw/master/docs/diagrams/dataplane.jpg" alt="Data Plane"></p>
+
+<ul>
+  <li>KFServing의 배포/서비스 단위 (CRD)</li>
+  <li>api는 <a href="https://www.tensorflow.org/tfx/serving/api_rest#predict_api">Tensorflow V1 HTTP API</a>를 따름 (<a href="https://m.blog.naver.com/yangseungjae/220708695668">Out-of-the-box</a>의 경우)</li>
+  <li>Ensembling, A/B testing, Multi-Arm-Bandits 등은 InferenceService를 조합하여 구현해야함 (단일 InferenceService로는 불가능)
+    <ul>
+      <li>Seldon Core와 비교됨 (참고2)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="2-inferenceservice-구성요소">
+<a class="anchor" href="#2-inferenceservice-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. InferenceService 구성요소</h2>
+
+<h3 id="21-predictor">
+<a class="anchor" href="#21-predictor" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1 Predictor</h3>
+
+<ul>
+  <li>필수</li>
+  <li>REST API path의 postfix가 <code class="language-plaintext highlighter-rouge">:predict</code>
+</li>
+  <li>trained model의 serving을 수행
+    <ul>
+      <li>storage에 저장된 trained model을 load하여 서비스
+        <ul>
+          <li>지원하는 storage provider
+            <ul>
+              <li>Google Cloud Storage <code class="language-plaintext highlighter-rouge">gs://</code>
+</li>
+              <li>S3 Compatible Object Storage <code class="language-plaintext highlighter-rouge">s3://</code>
+</li>
+              <li>Azure Blob Storage <code class="language-plaintext highlighter-rouge">https://</code>
+</li>
+              <li>Local filesystem <code class="language-plaintext highlighter-rouge">file://</code>
+</li>
+              <li>Persistent Volume Claim (PVC) <code class="language-plaintext highlighter-rouge">pvc://</code>
+</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>trained model은 프로비저닝되어 제공되는 이미지(framework)에 따름
+        <ul>
+          <li>제공되는 이미지 프로비저닝 - <a href="https://github.com/kubeflow/kfserving/tree/master/docs/apis/v1beta1#predictorspec">kfserving/docs/apis/v1beta1 at kubeflow/kfserving (github.com)</a>
+            <ul>
+              <li>tensorflow</li>
+              <li>tensorrt</li>
+              <li>xgboost</li>
+              <li>sklearn</li>
+              <li>onnx</li>
+              <li>pytorch</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="22-transformer">
+<a class="anchor" href="#22-transformer" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2 Transformer</h3>
+
+<ul>
+  <li>필수아님</li>
+  <li>prediction 또는 explanation의 실행 전/후에 수행될 로직을 탑재 (preprocess/postprocess) → 전처리 / 후처리 용도</li>
+  <li>Interceptioon Filter로서 동작
+<img src="../images/2020-05-15-KFServing/KFServing-transrofmer.png" alt="KFServing-transrofmer">
+</li>
+</ul>
+
+<h3 id="23-explainer">
+<a class="anchor" href="#23-explainer" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3 Explainer</h3>
+
+<ul>
+  <li>필수아님</li>
+  <li>REST API path의 postfix가 <code class="language-plaintext highlighter-rouge">:explain</code>
+</li>
+  <li>제공되는 이미지 프로비저닝
+    <ul>
+      <li><a href="https://github.com/SeldonIO/alibi">Seldon Alibi</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="3-inferenceservice-배포">
+<a class="anchor" href="#3-inferenceservice-%EB%B0%B0%ED%8F%AC" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. InferenceService 배포</h2>
+
+<ul>
+  <li>
+    <p>방법1: kubectl</p>
+
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>kubectl apply <span class="nt">-f</span> xxxxx.yaml 
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>방법2: Kubeflow Pipelines (<a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/pipelines/sample-tf-pipeline.py">Sample</a>)</p>
+  </li>
+  <li>
+    <p>방법3: <a href="https://github.com/kubeflow/kfserving/blob/master/python/kfserving">KFServing Python SDK</a> (<a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/client/kfserving_sdk_v1beta1_sample.ipynb">Sample</a>)</p>
+  </li>
+</ul>
+
+<h2 id="4-inferenceservice-구성요소-유형">
+<a class="anchor" href="#4-inferenceservice-%EA%B5%AC%EC%84%B1%EC%9A%94%EC%86%8C-%EC%9C%A0%ED%98%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>4. InferenceService 구성요소 유형</h2>
+
+<ul>
+  <li>역할에 따른 구분
+    <ul>
+      <li>Predictor</li>
+      <li>Transformer</li>
+      <li>Explainer</li>
+    </ul>
+  </li>
+  <li>이미지 프로비저닝 여부에 따른 구분
+    <ul>
+      <li>
+<a href="https://m.blog.naver.com/yangseungjae/220708695668">Out-of-the-box</a> ← 프로비저닝된 이미지 사용</li>
+      <li>Custom</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="41-out-of-the-box-predictor">
+<a class="anchor" href="#41-out-of-the-box-predictor" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.1 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples#deploy-inferenceservice-with-predictor">Out-of-the-box Predictor</a>
+</h3>
+
+<ul>
+  <li>프로비저닝 이미지를 사용
+    <ul>
+      <li>프로비저닝할 프레임워크(예: tensorflow, pytorch) 명시 필요 (이미지에 대한 기술 X)</li>
+    </ul>
+  </li>
+  <li>모델이 저장된 위치 필요 (storageUri)</li>
+</ul>
+
+<h4 id="411-tensorflow-예제">
+<a class="anchor" href="#411-tensorflow-%EC%98%88%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.1.1 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples/v1beta1/tensorflow">tensorflow</a> 예제</h4>
+
+<h5 id="4111-manifests-tensorflowyaml">
+<a class="anchor" href="#4111-manifests-tensorflowyaml" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.1.1.1 manifests: <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/v1beta1/tensorflow/simple.yaml">tensorflow.yaml</a>
+</h5>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">serving.kubeflow.org/v1beta1"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">InferenceService"</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">flowers-sample"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">default</span><span class="pi">:</span>
+    <span class="na">predictor</span><span class="pi">:</span>
+      <span class="na">tensorflow</span><span class="pi">:</span>
+        <span class="na">storageUri</span><span class="pi">:</span> <span class="s2">"</span><span class="s">gs://kfserving-samples/models/tensorflow/flowers"</span>
+</code></pre></div></div>
+
+<h4 id="412-pytorch-예제">
+<a class="anchor" href="#412-pytorch-%EC%98%88%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.1.2 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples/v1beta1/torchserve">pytorch</a> 예제</h4>
+
+<h5 id="4121-manifests-pytorchyaml">
+<a class="anchor" href="#4121-manifests-pytorchyaml" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.1.2.1 manifests: <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/v1alpha2/pytorch/pytorch.yaml">pytorch.yaml</a>
+</h5>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">serving.kubeflow.org/v1alpha2"</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">InferenceService"</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">pytorch-cifar10"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">default</span><span class="pi">:</span>
+    <span class="na">predictor</span><span class="pi">:</span>
+      <span class="na">pytorch</span><span class="pi">:</span>
+        <span class="na">storageUri</span><span class="pi">:</span> <span class="s2">"</span><span class="s">gs://kfserving-samples/models/pytorch/cifar10/"</span>
+        <span class="na">modelClassName</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Net"</span>
+</code></pre></div></div>
+
+<h3 id="42-custom-predictor">
+<a class="anchor" href="#42-custom-predictor" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples/custom">Custom Predictor</a>
+</h3>
+
+<ul>
+  <li>프로비저닝 이미지를 사용하지 않고 Custom 이미지를 사용</li>
+</ul>
+
+<h4 id="421-flask-hello-world-예제">
+<a class="anchor" href="#421-flask-hello-world-%EC%98%88%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2.1 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples/custom/hello-world">Flask Hello World</a> 예제</h4>
+
+<h5 id="4211-manifests-customyaml">
+<a class="anchor" href="#4211-manifests-customyaml" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2.1.1 manifests: <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/custom/hello-world/custom.yaml">custom.yaml</a>
+</h5>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">serving.kubeflow.org/v1alpha2</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">InferenceService</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">controller-tools.k8s.io</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">custom-sample</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">default</span><span class="pi">:</span>
+    <span class="na">predictor</span><span class="pi">:</span>
+      <span class="na">custom</span><span class="pi">:</span>
+        <span class="na">container</span><span class="pi">:</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s">sds.redii.net/sample/custom-sample</span>
+          <span class="na">env</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">GREETING_TARGET</span>
+              <span class="na">value</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Python</span><span class="nv"> </span><span class="s">KFServing</span><span class="nv"> </span><span class="s">Sample"</span>
+</code></pre></div></div>
+
+<h5 id="4212-dockerfile">
+<a class="anchor" href="#4212-dockerfile" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2.1.2 <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/custom/hello-world/Dockerfile">Dockerfile</a>
+</h5>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ... 선략 ...</span>
+<span class="k">COPY</span><span class="s"> app.py requirements.txt ./</span>
+<span class="c"># ... 생략 ...</span>
+<span class="k">CMD</span><span class="s"> exec gunicorn --bind :$PORT --workers 1 --threads 8 app:app</span>
+</code></pre></div></div>
+
+<h5 id="4213-application-apppy">
+<a class="anchor" href="#4213-application-apppy" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2.1.3 application: <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/custom/hello-world/app.py">app.py</a>
+</h5>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/v1/models/custom-sample:predict'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">hello_world</span><span class="p">():</span>
+    <span class="n">greeting_target</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'GREETING_TARGET'</span><span class="p">,</span> <span class="s">'World'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s">'Hello {}!</span><span class="se">\n</span><span class="s">'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">greeting_target</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s">'0.0.0.0'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'PORT'</span><span class="p">,</span> <span class="mi">8080</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<h4 id="422-kfserving-custom-model-예제">
+<a class="anchor" href="#422-kfserving-custom-model-%EC%98%88%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2.2 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples/custom/kfserving-custom-model">kfserving-custom-model</a> 예제</h4>
+
+<h5 id="4221-manifests-customyaml">
+<a class="anchor" href="#4221-manifests-customyaml" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2.2.1 manifests: <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/custom/kfserving-custom-model/custom.yaml">custom.yaml</a>
+</h5>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">serving.kubeflow.org/v1alpha2</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">InferenceService</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">controller-tools.k8s.io</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">kfserving-custom-model</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">default</span><span class="pi">:</span>
+    <span class="na">predictor</span><span class="pi">:</span>
+      <span class="na">custom</span><span class="pi">:</span>
+        <span class="na">container</span><span class="pi">:</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">username</span><span class="pi">}</span><span class="s">/kfserving-custom-model</span>
+</code></pre></div></div>
+
+<h5 id="4222-dockerfile">
+<a class="anchor" href="#4222-dockerfile" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2.2.2 <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/custom/kfserving-custom-model/model-server/Dockerfile">Dockerfile</a>
+</h5>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ... 선략 ...</span>
+<span class="k">COPY</span><span class="s"> model.py  imagenet_classes.txt ./</span>
+
+<span class="k">CMD</span><span class="s"> ["python", "model.py"]</span>
+</code></pre></div></div>
+
+<h5 id="4223-application-modelpy">
+<a class="anchor" href="#4223-application-modelpy" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.2.2.3 application: <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/custom/kfserving-custom-model/model-server/model.py">model.py</a>
+</h5>
+
+<ul>
+  <li>kfserving.KFModel을 상속받고 load()와 predict()를 구현함</li>
+  <li>load()를 미리 호출하여 model을 restore한 후, 서버를 start()</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">kfserving</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="k">class</span> <span class="nc">KFServingSampleModel</span><span class="p">(</span><span class="n">kfserving</span><span class="p">.</span><span class="n">KFModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">ready</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># model load 코드 생략
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">ready</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">request</span><span class="p">[</span><span class="s">"instances"</span><span class="p">]</span>
+        <span class="c1"># predict 코드 생략
+</span>        <span class="k">return</span> <span class="p">{</span><span class="s">"predictions"</span><span class="p">:</span> <span class="n">results</span><span class="p">}</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">KFServingSampleModel</span><span class="p">(</span><span class="s">"kfserving-custom-model"</span><span class="p">)</span>
+    <span class="n">model</span><span class="p">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="n">kfserving</span><span class="p">.</span><span class="n">KFServer</span><span class="p">(</span><span class="n">workers</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="n">start</span><span class="p">([</span><span class="n">model</span><span class="p">])</span>
+</code></pre></div></div>
+
+<h3 id="43-transformer">
+<a class="anchor" href="#43-transformer" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.3 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples/transformer/image_transformer">Transformer</a>
+</h3>
+
+<h4 id="431-image-transformer-with-pytorch-predictor-예제">
+<a class="anchor" href="#431-image-transformer-with-pytorch-predictor-%EC%98%88%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.3.1 <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/transformer/image_transformer">Image Transformer with PyTorch Predictor</a> 예제</h4>
+
+<h5 id="4311-manifests-image_transformeryaml">
+<a class="anchor" href="#4311-manifests-image_transformeryaml" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.3.1.1 manifests: <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/transformer/image_transformer/image_transformer.yaml">image_transformer.yaml</a>
+</h5>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">serving.kubeflow.org/v1alpha2</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">InferenceService</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">transformer-cifar10</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">default</span><span class="pi">:</span>
+    <span class="na">transformer</span><span class="pi">:</span>
+      <span class="na">custom</span><span class="pi">:</span>
+        <span class="na">container</span><span class="pi">:</span>
+          <span class="na">image</span><span class="pi">:</span> <span class="s">gcr.io/kubeflow-ci/kfserving/image-transformer:latest</span>
+          <span class="na">name</span><span class="pi">:</span> <span class="s">user-container</span>  
+    <span class="na">predictor</span><span class="pi">:</span>
+      <span class="na">pytorch</span><span class="pi">:</span>
+        <span class="na">modelClassName</span><span class="pi">:</span> <span class="s">Net</span>
+        <span class="na">storageUri</span><span class="pi">:</span> <span class="s">gs://kfserving-samples/models/pytorch/cifar10</span>
+</code></pre></div></div>
+
+<h5 id="4312-dockerfile">
+<a class="anchor" href="#4312-dockerfile" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.3.1.2 <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/transformer/image_transformer/transformer.Dockerfile">Dockerfile</a>
+</h5>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ... 선략 ...</span>
+<span class="k">ENTRYPOINT</span><span class="s"> ["python", "-m", "image_transformer"]</span>
+</code></pre></div></div>
+
+<h5 id="4313-application-image_transformerpy">
+<a class="anchor" href="#4313-application-image_transformerpy" aria-hidden="true"><span class="octicon octicon-link"></span></a>4.3.1.3 application: <a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/transformer/image_transformer/image_transformer/image_transformer.py">image_transformer.py</a>
+</h5>
+
+<ul>
+  <li>kfserving.KFModel을 상속받고 preprocess()와 postprocess()를 구현함</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">image_transform</span><span class="p">(</span><span class="n">instance</span><span class="p">):</span>
+    <span class="p">...</span><span class="n">생략</span><span class="p">...</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">ImageTransformer</span><span class="p">(</span><span class="n">kfserving</span><span class="p">.</span><span class="n">KFModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">predictor_host</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">predictor_host</span> <span class="o">=</span> <span class="n">predictor_host</span>
+
+    <span class="k">def</span> <span class="nf">preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s">'instances'</span><span class="p">:</span> <span class="p">[</span><span class="n">image_transform</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span> <span class="k">for</span> <span class="n">instance</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">[</span><span class="s">'instances'</span><span class="p">]]}</span>
+
+    <span class="k">def</span> <span class="nf">postprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">inputs</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">transformer</span> <span class="o">=</span> <span class="n">ImageTransformer</span><span class="p">(</span><span class="n">args</span><span class="p">.</span><span class="n">model_name</span><span class="p">,</span> <span class="n">predictor_host</span><span class="o">=</span><span class="n">args</span><span class="p">.</span><span class="n">predictor_host</span><span class="p">)</span>
+    <span class="n">kfserver</span> <span class="o">=</span> <span class="n">kfserving</span><span class="p">.</span><span class="n">KFServer</span><span class="p">()</span>
+    <span class="n">kfserver</span><span class="p">.</span><span class="n">start</span><span class="p">(</span><span class="n">models</span><span class="o">=</span><span class="p">[</span><span class="n">transformer</span><span class="p">])</span>      
+</code></pre></div></div>
+
+<h2 id="5--kfserving-python-sdk">
+<a class="anchor" href="#5--kfserving-python-sdk" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.  <a href="https://github.com/kubeflow/kfserving/blob/master/python/kfserving">KFServing Python SDK</a>
+</h2>
+
+<h3 id="51-model--server">
+<a class="anchor" href="#51-model--server" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.1 Model / Server</h3>
+
+<ul>
+  <li>“4.2 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples/custom">Custom Predictor</a> / 4.2.2 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples/custom/kfserving-custom-model">kfserving-custom-model</a> 예제” 및 “4.3 <a href="https://github.com/kubeflow/kfserving/tree/master/docs/samples/transformer/image_transformer">Transformer</a>” 참조</li>
+</ul>
+
+<h3 id="52-client">
+<a class="anchor" href="#52-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>5.2 Client</h3>
+
+<ul>
+  <li>“3. InferenceService 배포 / 방법3: KFServing Python SDK (<a href="https://github.com/kubeflow/kfserving/blob/master/docs/samples/client/kfserving_sdk_v1beta1_sample.ipynb">Sample</a>)” 참조</li>
+</ul>
+
+<h2 id="참고1-tensorflow-model을-save하는-방법">
+<a class="anchor" href="#%EC%B0%B8%EA%B3%A01-tensorflow-model%EC%9D%84-save%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>참고1: <a href="https://www.tensorflow.org/tutorials/keras/save_and_load?hl=ko">TensorFlow Model을 Save하는 방법</a>
+</h2>
+
+<h3 id="체크포인트">
+<a class="anchor" href="#%EC%B2%B4%ED%81%AC%ED%8F%AC%EC%9D%B8%ED%8A%B8" aria-hidden="true"><span class="octicon octicon-link"></span></a>체크포인트</h3>
+
+<ul>
+  <li>training 중간과 training 마지막에 체크포인트(checkpoint)를 저장
+    <ul>
+      <li>다시 training 하지 않고 모델을 재사용하거나</li>
+      <li>training  과정이 중지된 경우 이어서 training을 진행 가능</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">.ckpt</code> 파일
+    <ul>
+      <li>모델의 가중치를 포함하는 하나 이상의 샤드(shard)</li>
+      <li>가중치가 어느 샤드에 저장되어 있는지를 나타내는 인덱스 파일</li>
+      <li>모델 전체를 저장하지 않음 → 모델 구조는 저장하지 않음</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="hdf5-hierarchical-data-format">
+<a class="anchor" href="#hdf5-hierarchical-data-format" aria-hidden="true"><span class="octicon octicon-link"></span></a>HDF5 (<a href="https://en.wikipedia.org/wiki/Hierarchical_Data_Format#HDF5">Hierarchical Data Format</a>)</h3>
+
+<ul>
+  <li>모델 전체를 저장</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">.h5</code> 또는 <code class="language-plaintext highlighter-rouge">.hdf5</code> 파일
+    <ul>
+      <li>가중치 값</li>
+      <li>모델 설정(구조)</li>
+      <li>옵티마이저 설정</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="tensorflow-savedmodel">
+<a class="anchor" href="#tensorflow-savedmodel" aria-hidden="true"><span class="octicon octicon-link"></span></a>TensorFlow SavedModel</h3>
+
+<ul>
+  <li>language-neutral format to save machine-learned models → Tensorflow Serving 등에서 사용</li>
+  <li>모델 전체를 저장</li>
+  <li>Ref: <a href="https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/saved_model#tensorflow-savedmodel">https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/saved_model#tensorflow-savedmodel</a>
+</li>
+  <li>저장 예제 코드</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">export_dir</span> <span class="o">=</span> <span class="p">...</span>
+<span class="p">...</span>
+<span class="n">builder</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">saved_model</span><span class="p">.</span><span class="n">builder</span><span class="p">.</span><span class="n">SavedModelBuilder</span><span class="p">(</span><span class="n">export_dir</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">tf</span><span class="p">.</span><span class="n">Graph</span><span class="p">())</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+  <span class="p">...</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">add_meta_graph_and_variables</span><span class="p">(</span><span class="n">sess</span><span class="p">,</span>
+                                       <span class="p">[</span><span class="n">tf</span><span class="p">.</span><span class="n">saved_model</span><span class="p">.</span><span class="n">tag_constants</span><span class="p">.</span><span class="n">TRAINING</span><span class="p">],</span>
+                                       <span class="n">signature_def_map</span><span class="o">=</span><span class="n">foo_signatures</span><span class="p">,</span>
+                                       <span class="n">assets_collection</span><span class="o">=</span><span class="n">foo_assets</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="k">with</span> <span class="n">tf</span><span class="p">.</span><span class="n">Session</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">tf</span><span class="p">.</span><span class="n">Graph</span><span class="p">())</span> <span class="k">as</span> <span class="n">sess</span><span class="p">:</span>
+  <span class="p">...</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">add_meta_graph</span><span class="p">([</span><span class="s">"bar-tag"</span><span class="p">,</span> <span class="s">"baz-tag"</span><span class="p">])</span>
+<span class="p">...</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">save</span><span class="p">()</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+<a href="https://github.com/tensorflow/serving/blob/master/tensorflow_serving/g3doc/signature_defs.md">SignatureDef</a>로 다음 항목을 정의
+    <ul>
+      <li>method_name</li>
+      <li>inputs: 입력 tensor의 이름, dtype, shape을 정의</li>
+      <li>outpus: 출력  tensor의 이름, dtype, shape을 정의</li>
+    </ul>
+  </li>
+  <li>다음과 같은 구조로 모델이 저장됨</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assets/
+assets.extra/
+variables/
+    variables.data-?????-of-?????
+    variables.index
+saved_model.pb
+</code></pre></div></div>
+
+<h2 id="참고2-seldon-core-inference-graphpipeline">
+<a class="anchor" href="#%EC%B0%B8%EA%B3%A02-seldon-core-inference-graphpipeline" aria-hidden="true"><span class="octicon octicon-link"></span></a>참고2: <a href="https://docs.seldon.io/projects/seldon-core/en/stable/">Seldon Core</a> Inference Graph(Pipeline)</h2>
+
+<p><img src="https://docs.seldon.io/projects/seldon-core/en/stable/_images/seldon-core-high-level.jpg" alt="graph"></p>
+
+<ul>
+  <li><a href="https://docs.seldon.io/projects/seldon-core/en/stable/graph/inference-graph.html">https://docs.seldon.io/projects/seldon-core/en/stable/graph/inference-graph.html</a></li>
+  <li>
+<a href="https://www.slideshare.net/seldon_io/seldon-deploying-models-at-scale">https://www.slideshare.net/seldon_io/seldon-deploying-models-at-scale</a> (p28)</li>
+</ul>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://everlearningemployee.github.io/blog/post/KFServing.html';
+      this.page.identifier = 'https://everlearningemployee.github.io/blog/post/KFServing.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://everlearningemployee.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/post/KFServing.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>영고라인</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://www.facebook.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#facebook"></use></svg></a></li><li><a rel="me" href="https://github.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.youtube.com/channel/UCuqelMVE6ZKFhv8tP8n-FkA" target="_blank" title="YouTube"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#youtube"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Kafka를 공부해보자 | [공부하는 회사원] 빨강달</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Kafka를 공부해보자" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Kafka 정도는 알아줘야지" />
+<meta property="og:description" content="Kafka 정도는 알아줘야지" />
+<link rel="canonical" href="https://everlearningemployee.github.io/blog/post/hello-kafka.html" />
+<meta property="og:url" content="https://everlearningemployee.github.io/blog/post/hello-kafka.html" />
+<meta property="og:site_name" content="[공부하는 회사원] 빨강달" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-12T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Kafka를 공부해보자" />
+<script type="application/ld+json">
+{"url":"https://everlearningemployee.github.io/blog/post/hello-kafka.html","@type":"BlogPosting","headline":"Kafka를 공부해보자","dateModified":"2020-03-12T00:00:00-05:00","datePublished":"2020-03-12T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://everlearningemployee.github.io/blog/post/hello-kafka.html"},"description":"Kafka 정도는 알아줘야지","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://everlearningemployee.github.io/blog/feed.xml" title="[공부하는 회사원] 빨강달" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">[공부하는 회사원] 빨강달</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Kafka를 공부해보자</h1><p class="page-description">Kafka 정도는 알아줘야지</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-12T00:00:00-05:00" itemprop="datePublished">
+        Mar 12, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#kafka">kafka</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#hello">hello</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#prestop-hook">PreStop Hook</a></li>
+<li class="toc-entry toc-h1"><a href="#consumer-group--partition">Consumer Group / Partition</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#ml-적용-전략">ML 적용 전략</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#이슈">이슈</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#partitioner-type">Partitioner Type</a></li>
+<li class="toc-entry toc-h2"><a href="#partition-rebalancing">Partition Rebalancing</a></li>
+<li class="toc-entry toc-h2"><a href="#rebalancing-지연">Rebalancing 지연</a></li>
+<li class="toc-entry toc-h2"><a href="#nifi-연동">NiFi 연동</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#consumer-option">Consumer Option</a></li>
+<li class="toc-entry toc-h1"><a href="#hello-kafka">Hello Kafka</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#topic-만들기">Topic 만들기</a></li>
+<li class="toc-entry toc-h3"><a href="#producer-콘솔-기동">Producer 콘솔 기동</a></li>
+<li class="toc-entry toc-h3"><a href="#consumer-콘솔-기동">Consumer 콘솔 기동</a></li>
+<li class="toc-entry toc-h3"><a href="#topic-alter">Topic alter</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#python-lib">Python Lib</a></li>
+<li class="toc-entry toc-h1"><a href="#모니터링">모니터링</a></li>
+</ul><p><img src="Kafka.assets/download.png" alt=""></p>
+
+<h1 id="prestop-hook">
+<a class="anchor" href="#prestop-hook" aria-hidden="true"><span class="octicon octicon-link"></span></a>PreStop Hook</h1>
+
+<p>구현 필요</p>
+
+<h1 id="consumer-group--partition">
+<a class="anchor" href="#consumer-group--partition" aria-hidden="true"><span class="octicon octicon-link"></span></a>Consumer Group / Partition</h1>
+
+<ul>
+  <li>
+    <p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=2ahUKEwis4s_no6zlAhUKvZQKHXC1ClQQFjAAegQIARAB&amp;url=http%3A%2F%2Fwww.popit.kr%2Fkafka-consumer-group%2F&amp;usg=AOvVaw2eqTWdayB-QZk7ez_CRru-">Kafka 운영자가 말하는 Kafka Consumer Group</a></p>
+
+    <ul>
+      <li>컨슈머 그룹 별로 각각 offset이 유지됨</li>
+      <li>한 번 늘린 Partition은 줄일 수 없음</li>
+      <li>갯수(Partition) &gt; 갯수(Consumer):
+        <ul>
+          <li>어쨌든 일 함. 특정  Consumer로 일이 쏠림</li>
+        </ul>
+      </li>
+      <li>갯수(Partition) &lt; 갯수(Consumer)
+        <ul>
+          <li>
+            <p>노는 Consumr 생심. 이런 상황 절대 허용할 수 없음</p>
+
+            <h4 id="ml-적용-전략">
+<a class="anchor" href="#ml-%EC%A0%81%EC%9A%A9-%EC%A0%84%EB%9E%B5" aria-hidden="true"><span class="octicon octicon-link"></span></a>ML 적용 전략</h4>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>K8s에 ML Logic Consumer Pod가 배포됐다고 치자</p>
+  </li>
+  <li>
+    <p>Consumer Group은 <strong>업무별로 1개</strong></p>
+
+    <ul>
+      <li>중복 처리 X이므로 여러 Consumer들이 Offset을 공유해야함</li>
+    </ul>
+  </li>
+  <li>
+    <p>갯수(Parition)과 갯수(Cousumer ) 매핑</p>
+
+    <ul>
+      <li>
+        <p>partition은 consumming 과정이 동기인 듯</p>
+
+        <ul>
+          <li>추정의 이유:
+            <ul>
+              <li>1개의 consumer는 1개 이상의 partition에 붙을 수 있으나</li>
+            </ul>
+          </li>
+          <li>1개의 partition은 1개의 consumer만 담당</li>
+          <li>무조건 <strong>갯수(Partition) &gt;= 갯수(Consumer)</strong>로 구성 필요</li>
+          <li>ML컨수머는 <strong>롱트랜잭션</strong>이므로</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>1안) 갯수(Partition) = 갯수(Consumer): 1대 1로 갯수를 맞춤</strong></p>
+
+        <ul>
+          <li>Consumer Pod를 <strong>Scaling 하지 않음</strong> (Min == Max)
+            <ul>
+              <li>장점: 확실</li>
+            </ul>
+          </li>
+          <li>단점: Pod 리소스 점유 아까워</li>
+        </ul>
+      </li>
+      <li>
+        <p>2안) 갯수(Partition) = Max(갯수(Consumer))</p>
+
+        <ul>
+          <li>Consumer Pod를 Scaling 함
+            <ul>
+              <li>장점: Pod 갯수 필요한 만큼 까지만 떠 있음</li>
+            </ul>
+          </li>
+          <li>단점: 업무 특성 상, Scale Out 시 모델 리스토어를 위하여 Pod ready 시간이 수십초~수분 소요 예상 ← 적절한 선택이 아님</li>
+        </ul>
+      </li>
+      <li>
+        <p>3안) Parition과 Cousumer 갯수는 테스트로 적정치 선정</p>
+
+        <ul>
+          <li>
+            <p>Parition과 Cousumer의 <strong>갯수 매핑</strong> 자체는 실질적으로 의미가 <strong>없음</strong></p>
+          </li>
+          <li>
+            <p><strong>전제</strong>: Partition에 대한 메시지 배분이 라운드로빈이 아니라, <strong>대기열이 가장 짧은 partition 우선</strong></p>
+
+            <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>← Custom Partitioner  구현 필요?
+</code></pre></div>            </div>
+
+            <p>← 이미 준비되어있는 선택할 수 있는 Partitioner 유형이 있을 듯</p>
+
+            <ul>
+              <li>
+                <p>Producer 생성 시, partitionerType 설정</p>
+
+                <ul>
+                  <li>default = 0, random = 1, cyclic = 2, keyed = 3, custom = 4</li>
+                </ul>
+              </li>
+              <li>
+                <p>https://github.com/SOHU-Co/kafka-node/issues/1094</p>
+              </li>
+              <li>
+                <p>Parition과 Cousumer 각각의 <strong>갯수 자체</strong>가 의미 있음</p>
+              </li>
+              <li>
+                <p>구찮… 3)안은 못 쓰겠다.</p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="이슈">
+<a class="anchor" href="#%EC%9D%B4%EC%8A%88" aria-hidden="true"><span class="octicon octicon-link"></span></a>이슈</h1>
+
+<h2 id="partitioner-type">
+<a class="anchor" href="#partitioner-type" aria-hidden="true"><span class="octicon octicon-link"></span></a>Partitioner Type</h2>
+
+<ul>
+  <li>Producer 설정임
+    <ul>
+      <li>property: partitioner.class (default: kafka.producer.DefaultPartitioner)</li>
+    </ul>
+  </li>
+  <li><a href="https://cwiki.apache.org/confluence/display/KAFKA/FAQ#FAQ-Whyisdatanotevenlydistributedamongpartitionswhenapartitioningkeyisnotspecified?">Why is data not evenly distributed among partitions when a partitioning key is not specified?</a></li>
+</ul>
+
+<h2 id="partition-rebalancing">
+<a class="anchor" href="#partition-rebalancing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Partition Rebalancing</h2>
+
+<ul>
+  <li><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=3&amp;ved=2ahUKEwjxzp3J8qzlAhXDzIsBHcXjA0EQFjACegQIFhAB&amp;url=https%3A%2F%2Flabs.tabmo.io%2Frebalancing-kafkas-partitions-803918d8d244&amp;usg=AOvVaw0WNTNpYX_TAxnYxTLxSm2c">Rebalancing Kafka partitions - TabMo Labs</a></li>
+  <li><a href="https://www.confluent.io/blog/incremental-cooperative-rebalancing-in-kafka/">Incremental Cooperative Rebalancing in Apache Kafka: Why Stop the World When You Can Change It?</a></li>
+</ul>
+
+<h2 id="rebalancing-지연">
+<a class="anchor" href="#rebalancing-%EC%A7%80%EC%97%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rebalancing 지연</h2>
+
+<ul>
+  <li><a href="https://medium.com/11st-pe-techblog/%EC%B9%B4%ED%94%84%EC%B9%B4-%EC%BB%A8%EC%8A%88%EB%A8%B8-%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%B0%B0%ED%8F%AC-%EC%A0%84%EB%9E%B5-4cb2c7550a72">카프카 컨슈머 애플리케이션 배포 전략 - 11번가 사례</a></li>
+  <li>그룹 내 특정 컨슈머가 poll 메소드를 호출을 지연</li>
+  <li>모든 컨슈머가 poll  해야 rebalancing 진행</li>
+</ul>
+
+<h2 id="nifi-연동">
+<a class="anchor" href="#nifi-%EC%97%B0%EB%8F%99" aria-hidden="true"><span class="octicon octicon-link"></span></a>NiFi 연동</h2>
+
+<ul>
+  <li>
+<a href="https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi/nifi-kafka-0-9-nar/1.5.0/org.apache.nifi.processors.kafka.pubsub.PublishKafka/">PublishKafka</a>
+    <ul>
+      <li>Partitioner class에 아래 2개 밖에 없음
+        <ul>
+          <li>RoundRobinPartitioner 
+Messages will be assigned partitions in a round-robin fashion, sending the first message to Partition 1, the next Partition to Partition 2, and so on, wrapping as necessary.</li>
+          <li>DefaultPartitioner</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="consumer-option">
+<a class="anchor" href="#consumer-option" aria-hidden="true"><span class="octicon octicon-link"></span></a>Consumer Option</h1>
+
+<ul>
+  <li><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=2ahUKEwis4s_no6zlAhUKvZQKHXC1ClQQFjABegQIAhAB&amp;url=https%3A%2F%2Fcoding-start.tistory.com%2F137&amp;usg=AOvVaw0ygVeIKyALE-u0C4ernoJG">Kafka - Kafka Consumer(카프카 컨슈머) Java&amp;CLI - 코딩스타트</a></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Option</th>
+      <th>내용</th>
+      <th>컨수머 설정</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>bootstrap.servers</strong></td>
+      <td>호스트와 포트 정보로 구성된 리스트</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><strong>group.id</strong></td>
+      <td>컨슈머 그룹 식별자</td>
+      <td>업무별 1개</td>
+    </tr>
+    <tr>
+      <td><strong>auto.offset.reset</strong></td>
+      <td>오프셋이 없거나 현재 오프셋이 더 이상 존재하지 않은 경우 (<strong>earliest</strong>가장초기/<strong>latest</strong>마지막/<strong>none</strong>에러)</td>
+      <td>latest</td>
+    </tr>
+    <tr>
+      <td><strong>fetch.min.bytes</strong></td>
+      <td>한번에 가져올 수 있는 최소 데이터 사이즈이다. 만약 지정한 사이즈보다 작은 경우, 요청에 대해 응답하지 않고 데이터가 누적될 때까지 기다린다</td>
+      <td>뭐지? 확인 필요. 작아야하나?</td>
+    </tr>
+    <tr>
+      <td><strong>fetch.max.bytes</strong></td>
+      <td>한번에 가져올 수 있는 최대 데이터 사이즈</td>
+      <td>확인 필요. 별로 안 커도 될듯</td>
+    </tr>
+    <tr>
+      <td><strong>request.timeout.ms</strong></td>
+      <td>요청에 대해 응답을 기다리는 최대 시간</td>
+      <td>뭐지? 확인 필요. 별로 안 커도 될듯</td>
+    </tr>
+    <tr>
+      <td><strong>session.timeout.ms</strong></td>
+      <td>컨슈머와 브로커사이의 세션 타임 아웃시간. 브로커가 컨슈머가 살아있는 것으로 판단하는 시간(기본값 10초)</td>
+      <td><strong>롱트랜잭션이므로 충분히 길게</strong></td>
+    </tr>
+    <tr>
+      <td><strong>hearbeat.interval.ms</strong></td>
+      <td>그룹 코디네이터에게 얼마나 자주  KafkaConsumer poll() 메소드로 하트비트를 보낼 것인지 조정한다. session.timeout.ms와 밀접한 관계가  있으며 session.timeout.ms보다 낮아야한다. 일반적으로 1/3 값정도로 설정한다.(기본값 3초)</td>
+      <td>이거이거 확인 필요. <strong>우리는 롱트랜잭션</strong>
+</td>
+    </tr>
+    <tr>
+      <td><strong>max.poll.records</strong></td>
+      <td>단일 호출 poll()에 대한 최대 레코드 수를 조정한다. 이 옵션을 통해 애플리케이션이 폴링 루프에서 데이터를 얼마나 가져올지 양을 조정할 수 있다</td>
+      <td>뭐지?</td>
+    </tr>
+    <tr>
+      <td><strong>max.poll.interval.ms</strong></td>
+      <td>컨슈머가 살아있는지를 체크하기 위해  하트비트를 주기적으로 보내는데, 컨슈머가 계속해서 하트비트만 보내고 실제로 메시지를 가져가지 않는 경우가 있을 수도 있다. 이러한  경우 컨슈머가 무한정 해당 파티션을 점유할 수 없도록 주기적으로 poll을 호출하지 않으면 장애라고 판단하고 컨슈머 그룹에서  제외한 후 다른 컨슈머가 해당 파티션에서 메시지를 가져갈 수 있게한다.</td>
+      <td>이거이거 확인 필요. <strong>우리는 롱트랜잭션</strong>
+</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Kafka 토픽
+topic: diff-ai
+# 업무단위: 정책 상 토픽과 1:1
+group_id: mymyGrp
+# Kafka 서버
+bootstrap_servers: localhost:9092
+# 오프셋이 없거나 현재 오프셋이 더 이상 존재하지 않은 경우 
+# earliest:가장초기, latest마지막, none:에러
+auto_offset_reset: latest
+# 컨슈머와 브로커사이의 세션 타임 아웃시간 (초). 브로커가 컨슈머가 살아있는 것으로 판단하는 시간
+# ML컨수머는 롱트랜잭션이므로 충분히 길게 설정할 것
+session_timeout_ms: 1200
+# 롱트랜잭션이며 새로 추가되는 pod가 메시지를 즉시 받아올 수 있도록 1로 설정
+max_poll_records: 1
+</code></pre></div></div>
+
+<h1 id="hello-kafka">
+<a class="anchor" href="#hello-kafka" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hello Kafka</h1>
+
+<h3 id="topic-만들기">
+<a class="anchor" href="#topic-%EB%A7%8C%EB%93%A4%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>Topic 만들기</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-topics.bat <span class="nt">--create</span> <span class="nt">--zookeeper</span> localhost:2181 <span class="nt">--replication-factor</span> 1 <span class="nt">--partitions</span> 4 <span class="nt">--topic</span> diff-ai
+
+kafka-topics.bat <span class="nt">--zookeeper</span> localhost:2181 <span class="nt">--list</span>
+</code></pre></div></div>
+
+<h3 id="producer-콘솔-기동">
+<a class="anchor" href="#producer-%EC%BD%98%EC%86%94-%EA%B8%B0%EB%8F%99" aria-hidden="true"><span class="octicon octicon-link"></span></a>Producer 콘솔 기동</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-console-producer <span class="nt">--broker-list</span> localhost:9092 <span class="nt">--topic</span> diff-ai
+kafka-console-producer <span class="nt">--broker-list</span> localhost:9092 <span class="nt">--topic</span> mymy-A &lt; ..<span class="se">\.</span>.<span class="se">\.</span>.<span class="se">\T</span>est<span class="se">\T</span>estData<span class="se">\s</span>hort_input.txt
+</code></pre></div></div>
+
+<h3 id="consumer-콘솔-기동">
+<a class="anchor" href="#consumer-%EC%BD%98%EC%86%94-%EA%B8%B0%EB%8F%99" aria-hidden="true"><span class="octicon octicon-link"></span></a>Consumer 콘솔 기동</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-console-consumer <span class="nt">--bootstrap-server</span> localhost:9092 <span class="nt">--topic</span> diff-ai <span class="nt">--group</span> mymyGrp
+kafka-console-consumer <span class="nt">--bootstrap-server</span> loclahost:9092 <span class="nt">--topic</span> mymy-B <span class="nt">--group</span> mymyGrp
+</code></pre></div></div>
+
+<h3 id="topic-alter">
+<a class="anchor" href="#topic-alter" aria-hidden="true"><span class="octicon octicon-link"></span></a>Topic alter</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kafka-topics <span class="nt">--alter</span> <span class="nt">--zookeeper</span> localhost:2181 <span class="nt">--topic</span> diff-ai <span class="nt">--partitions</span> 4
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Kafka port: 9092</p>
+  </li>
+  <li>
+    <p>Zookeeper port: 2181</p>
+  </li>
+  <li>
+    <p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=2ahUKEwjWpPjcsLHlAhWMJaYKHUffDi8QFjABegQIBBAB&amp;url=https%3A%2F%2Ftimber.io%2Fblog%2Fhello-world-in-kafka-using-python%2F&amp;usg=AOvVaw3zKbjel1WRwgyoEhDahl1g">Hello world in Kafka using Python - Timber.io</a></p>
+  </li>
+</ul>
+
+<h1 id="python-lib">
+<a class="anchor" href="#python-lib" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python Lib</h1>
+
+<ul>
+  <li>
+    <p><a href="https://trends.google.co.kr/trends/explore?q=%22kafka-python%22,PyKafka,%22confluent-kafka%22">구글 트랜드 결과</a>
+<a href="https://github.com/dpkp/kafka-python">kafka-python</a> &gt; <a href="https://github.com/Parsely/pykafka">PyKafka</a> &gt; <a href="https://github.com/confluentinc/confluent-kafka-python">confluent-kafka-python</a></p>
+  </li>
+  <li>
+    <p>처리속도 비교</p>
+  </li>
+  <li>
+    <p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=2ahUKEwjckIqvvrHlAhWIQN4KHYQ0AqwQFjABegQIARAB&amp;url=http%3A%2F%2Fwww.popit.kr%2Fkafka-python-client-%EC%84%B1%EB%8A%A5-%ED%85%8C%EC%8A%A4%ED%8A%B8%2F&amp;usg=AOvVaw3Q4mrA8RW8xRXFcBd2tmD5">Kafka Python client 성능 테스트</a> (원본자료: <a href="http://activisiongamescience.github.io/2016/06/15/Kafka-Client-Benchmarking/#Python-Kafka-Client-Benchmarking">Python Kafka Client Benchmarking 2016-06-15</a>)</p>
+  </li>
+  <li>
+    <p>https://kafka-python.readthedocs.io/en/master/apidoc/modules.html</p>
+  </li>
+  <li>
+    <p><a href="https://github.com/dpkp/kafka-python">kafka-python</a> 헬로우월드</p>
+
+    <ul>
+      <li>
+        <p>Consumer</p>
+
+        <div class="language-python highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">kafka</span> <span class="kn">import</span> <span class="n">KafkaConsumer</span>
+<span class="kn">import</span> <span class="nn">time</span>
+    
+<span class="n">consumer</span> <span class="o">=</span> <span class="n">KafkaConsumer</span><span class="p">(</span><span class="s">'diff-ai'</span><span class="p">,</span> 
+                         <span class="n">group_id</span><span class="o">=</span><span class="s">'mymyGrp'</span><span class="p">,</span> 
+                         <span class="n">bootstrap_servers</span><span class="o">=</span><span class="s">'localhost:9092'</span><span class="p">)</span>
+    
+<span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">consumer</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="o">+</span><span class="s">"="</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">message</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"-"</span><span class="o">*</span><span class="mi">60</span><span class="p">)</span>
+    <span class="c1">#time.sleep(1)
+</span>    
+<span class="n">consumer</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="모니터링">
+<a class="anchor" href="#%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81" aria-hidden="true"><span class="octicon octicon-link"></span></a>모니터링</h1>
+
+<ul>
+  <li><a href="https://www.slideshare.net/freepsw/apache-kafka-metrics-123663954">Apache kafka 모니터링을 위한 Metrics 이해 및 최적화 방안</a></li>
+  <li>Burrow
+    <ul>
+      <li>https://github.com/linkedin/Burrow</li>
+      <li><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=2ahUKEwiyl93D8rHlAhWQbN4KHW81B_AQFjABegQIAhAB&amp;url=https%3A%2F%2Fdol9.tistory.com%2F272&amp;usg=AOvVaw38_uV7jfhMRQjHFyAPXSuZ">Kafka Consumer Lag 모니터링, Burrow를 알아보자 (1)</a></li>
+      <li><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=2ahUKEwjZidSW-LHlAhXdzIsBHXsEDagQFjAAegQIABAB&amp;url=https%3A%2F%2Fcommunity.cloudera.com%2Ft5%2FCommunity-Articles%2FMonitoring-Kafka-with-Burrow-Part-1%2Fta-p%2F245987&amp;usg=AOvVaw2mXcK_5vPKZqamVCHFyw72">Monitoring Kafka with Burrow - Part 1 - Cloudera Community</a></li>
+    </ul>
+  </li>
+  <li><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=9&amp;ved=2ahUKEwjenIqN87HlAhVDE4gKHb6WCBkQFjAIegQINBAB&amp;url=https%3A%2F%2Fwww.slideshare.net%2Fsunnykwak90%2Fapache-zoo-keeper&amp;usg=AOvVaw0PpQfiNhFgyy1PqB9LdBpq">Apache ZooKeeper 소개 - SlideShare</a></li>
+</ul>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://everlearningemployee.github.io/blog/post/hello-kafka.html';
+      this.page.identifier = 'https://everlearningemployee.github.io/blog/post/hello-kafka.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://everlearningemployee.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/post/hello-kafka.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>영고라인</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://www.facebook.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#facebook"></use></svg></a></li><li><a rel="me" href="https://github.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.youtube.com/channel/UCuqelMVE6ZKFhv8tP8n-FkA" target="_blank" title="YouTube"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#youtube"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

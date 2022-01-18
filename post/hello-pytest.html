@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Python TDD | [공부하는 회사원] 빨강달</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Python TDD" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="테스트도 안하고 언제까지 그렇게 살텐가" />
+<meta property="og:description" content="테스트도 안하고 언제까지 그렇게 살텐가" />
+<link rel="canonical" href="https://everlearningemployee.github.io/blog/post/hello-pytest.html" />
+<meta property="og:url" content="https://everlearningemployee.github.io/blog/post/hello-pytest.html" />
+<meta property="og:site_name" content="[공부하는 회사원] 빨강달" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-12T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Python TDD" />
+<script type="application/ld+json">
+{"url":"https://everlearningemployee.github.io/blog/post/hello-pytest.html","@type":"BlogPosting","headline":"Python TDD","dateModified":"2020-03-12T00:00:00-05:00","datePublished":"2020-03-12T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://everlearningemployee.github.io/blog/post/hello-pytest.html"},"description":"테스트도 안하고 언제까지 그렇게 살텐가","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://everlearningemployee.github.io/blog/feed.xml" title="[공부하는 회사원] 빨강달" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/blog/">[공부하는 회사원] 빨강달</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Python TDD</h1>
+<p class="page-description">테스트도 안하고 언제까지 그렇게 살텐가</p>
+<p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-03-12T00:00:00-05:00" itemprop="datePublished">
+        Mar 12, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#python">python</a>
+         
+      
+        <a class="category-tags-link" href="/blog/categories/#tdd">tdd</a>
+         
+      
+        <a class="category-tags-link" href="/blog/categories/#pytest">pytest</a>
+         
+      
+        <a class="category-tags-link" href="/blog/categories/#test">test</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1">
+<a href="#python-tdd">Python TDD</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#%EC%B0%B8%EA%B3%A0%EC%9E%90%EB%A3%8C">참고자료</a></li>
+<li class="toc-entry toc-h2"><a href="#python-unit-testing-framework">Python Unit Testing Framework</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1">
+<a href="#pytest">PyTest</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#pytest-tutorial-what-is-install-fixture-assertions">PyTest Tutorial: What is, Install, Fixture, Assertions</a></li>
+<li class="toc-entry toc-h3"><a href="#python-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0">Python 테스트 시작하기</a></li>
+<li class="toc-entry toc-h3"><a href="#python-how-to-use-pytest--mock--fixture">[Python] how to use pytest &amp; mock &amp; fixture</a></li>
+<li class="toc-entry toc-h3"><a href="#unittest-vs-pytest">unittest vs pytest</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="python-tdd">
+<a class="anchor" href="#python-tdd" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python TDD</h1>
+
+<h2 id="참고자료">
+<a class="anchor" href="#%EC%B0%B8%EA%B3%A0%EC%9E%90%EB%A3%8C" aria-hidden="true"><span class="octicon octicon-link"></span></a>참고자료</h2>
+
+<ul>
+  <li>김정주 Webzen -<a href="https://www.slideshare.net/ssuser163469/tdd-101?from_action=save">SlideShare 파이썬 TDD 101</a> <a href="%EC%98%A4%EB%8A%98%EA%B3%B5%EB%B6%80.2019.0903.assets%5Ctdd101-150316165839-conversion-gate01.pdf">(pdf)</a>
+</li>
+  <li>
+<a href="https://www.slideshare.net/bench8704?utm_campaign=profiletracking&amp;utm_medium=sssite&amp;utm_source=ssslideview">최명규</a> - <a href="https://www.slideshare.net/bench8704/python-unittest?next_slideshow=1">SlideShare - Python Unittest</a> <a href="%EC%98%A4%EB%8A%98%EA%B3%B5%EB%B6%80.2019.0903.assets%5Cpythonunittest-141215203459-conversion-gate02.pdf">(pdf)</a>
+</li>
+</ul>
+
+<h2 id="python-unit-testing-framework">
+<a class="anchor" href="#python-unit-testing-framework" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python Unit Testing Framework</h2>
+
+<p><a href="https://www.analyticsindiamag.com/5-python-unit-test-frameworks-to-learn-in-2019/">5 Python Unit Test Frameworks To Learn In 2019</a></p>
+
+<ul>
+  <li>
+    <p>unittest 모듈 - 기본 내장</p>
+  </li>
+  <li>
+    <p><del>PyUnit - unittest 예전 이름</del></p>
+  </li>
+  <li>
+    <p>nose - 한물 갔다고 함</p>
+  </li>
+  <li>
+    <p><strong>PyTest</strong> - 당첨</p>
+  </li>
+  <li>
+    <p><del>coverage - 테스트 커버리지 분석</del></p>
+  </li>
+  <li>
+    <p><del>Doctest - 특수 목적</del></p>
+  </li>
+  <li>
+    <p><a href="https://trends.google.co.kr/trends/explore?date=today%2012-m,today%2012-m,today%2012-m&amp;geo=,,&amp;q=unittest,nose2,PyTest&amp;hl=ko&amp;tz=-540">Google 트렌드: PyTest, nose2, “unittest”에 관한 검색 관심도를 시간, 위치, 인기도순으로 탐색</a></p>
+  </li>
+</ul>
+
+<h1 id="pytest">
+<a class="anchor" href="#pytest" aria-hidden="true"><span class="octicon octicon-link"></span></a>PyTest</h1>
+
+<h3 id="pytest-tutorial-what-is-install-fixture-assertions">
+<a class="anchor" href="#pytest-tutorial-what-is-install-fixture-assertions" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://www.guru99.com/pytest-tutorial.html">PyTest Tutorial: What is, Install, Fixture, Assertions</a>
+</h3>
+
+<ul>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#2">Why use PyTest?</a></li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#3">How to install PyTest</a></li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#4">First Basic PyTest</a></li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#5">Assertions in PyTest</a></li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#6">How pytest identifies the test files and test methods</a></li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#7">Run multiple tests from a specific file and multiple files.</a></li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#8">Run a subset of entire test</a></li>
+  <li>
+<a href="https://www.guru99.com/pytest-tutorial.html#9">Running tests in parallel</a>   <img class="emoji" title=":+1:" alt=":+1:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png" height="20" width="20">
+</li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#10">Pytest fixtures</a></li>
+  <li>
+<a href="https://www.guru99.com/pytest-tutorial.html#11">Parameterized tests</a>  <img class="emoji" title=":+1:" alt=":+1:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png" height="20" width="20">
+</li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#12">Xfail / Skip tests</a></li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#13">Results XML</a></li>
+  <li><a href="https://www.guru99.com/pytest-tutorial.html#14">A pytest framework testing an API</a></li>
+</ul>
+
+<h3 id="python-테스트-시작하기">
+<a class="anchor" href="#python-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://www.slideshare.net/hosunglee948/python-52222334">Python 테스트 시작하기</a>
+</h3>
+
+<h3 id="python-how-to-use-pytest--mock--fixture">
+<a class="anchor" href="#python-how-to-use-pytest--mock--fixture" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://code13.tistory.com/256">[Python] how to use pytest &amp; mock &amp; fixture</a>
+</h3>
+
+<h3 id="unittest-vs-pytest">
+<a class="anchor" href="#unittest-vs-pytest" aria-hidden="true"><span class="octicon octicon-link"></span></a><a href="https://www.bangseongbeom.com/unittest-vs-pytest.html">unittest vs pytest</a>
+</h3>
+
+  </div>
+<div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://everlearningemployee.github.io/blog/post/hello-pytest.html';
+      this.page.identifier = 'https://everlearningemployee.github.io/blog/post/hello-pytest.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://everlearningemployee.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+</noscript>
+<a class="u-url" href="/blog/post/hello-pytest.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>영고라인</p>
+      </div>
+    </div>
+
+    <div class="social-links">
+<ul class="social-media-list">
+<li><a rel="me" href="https://www.facebook.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#facebook"></use></svg></a></li>
+<li><a rel="me" href="https://github.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li>
+<li><a rel="me" href="https://www.youtube.com/channel/UCuqelMVE6ZKFhv8tP8n-FkA" target="_blank" title="YouTube"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#youtube"></use></svg></a></li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

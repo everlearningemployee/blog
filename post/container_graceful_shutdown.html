@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Container Graceful Shutdown | [공부하는 회사원] 빨강달</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Container Graceful Shutdown" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="세련되게 살자" />
+<meta property="og:description" content="세련되게 살자" />
+<link rel="canonical" href="https://everlearningemployee.github.io/blog/post/container_graceful_shutdown.html" />
+<meta property="og:url" content="https://everlearningemployee.github.io/blog/post/container_graceful_shutdown.html" />
+<meta property="og:site_name" content="[공부하는 회사원] 빨강달" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-09T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Container Graceful Shutdown" />
+<script type="application/ld+json">
+{"url":"https://everlearningemployee.github.io/blog/post/container_graceful_shutdown.html","@type":"BlogPosting","headline":"Container Graceful Shutdown","dateModified":"2020-06-09T00:00:00-05:00","datePublished":"2020-06-09T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://everlearningemployee.github.io/blog/post/container_graceful_shutdown.html"},"description":"세련되게 살자","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://everlearningemployee.github.io/blog/feed.xml" title="[공부하는 회사원] 빨강달" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">[공부하는 회사원] 빨강달</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Container Graceful Shutdown</h1><p class="page-description">세련되게 살자</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-06-09T00:00:00-05:00" itemprop="datePublished">
+        Jun 9, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#Python">Python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#Container">Container</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#stopsignal">stopsignal</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#Docker">Docker</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#SIGTERM">SIGTERM</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="필요한-이유">필요한 이유</h2>
+
+<ul>
+  <li>롱트랜잭션 실행 중일 때 shutdown 한다면?</li>
+  <li>서비스 업데이트 등의 상황으로 k8s가 pod 종료 시도할 때</li>
+  <li>pod가 처리 중인 상태에서 강제로 kill 될 가능성 농후</li>
+</ul>
+
+<h3 id="1안-sigterm에-대한-처리-구현">1안) SIGTERM에 대한 처리 구현</h3>
+
+<h4 id="python-conatiner">Python Conatiner</h4>
+
+<ul>
+  <li>signal trap으로 구현</li>
+</ul>
+
+<h4 id="restful-api-contaner">RESTful API Contaner</h4>
+
+<ul>
+  <li>
+    <p>Supervisord  설정</p>
+
+    <div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">stopsignal</span><span class="p">=</span><span class="s">HUP</span>
+<span class="py">stopwaitsecs</span><span class="p">=</span><span class="s">10</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>uWSGI</p>
+
+    <ul>
+      <li>뭔짓을 해도 python에서 trap을 하지 못한다</li>
+      <li>그나마 graceful하게 reload은 한다</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="시나리오1">시나리오1</h4>
+
+<ol>
+  <li>docker stop하면</li>
+  <li>Supervisord에서 HUP 보내고</li>
+  <li>uWSGI는 graceful reload (이뭐병)</li>
+  <li>(결과적으로 uWSGI랑 상관없이) Supervisord는 10초 기다렸다 kill all</li>
+  <li>아직 안 죽었으면 docker는 time 기다리고 kill</li>
+</ol>
+
+<h4 id="시나리오2">시나리오2</h4>
+
+<ul>
+  <li>그냥 K8s에서 <code class="language-plaintext highlighter-rouge">terminationGracePeriodSeconds</code>을 길게 준다</li>
+</ul>
+
+<h4 id="signalipc">Signal(IPC)</h4>
+
+<ul>
+  <li><a href="https://www.quora.com/What-is-the-difference-between-the-SIGINT-and-SIGTERM-signals-in-Linux-What%E2%80%99s-the-difference-between-the-SIGKILL-and-SIGSTOP-signals">SIGINT SIGTERM SIGKILL SIGSTOP</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Signal_(IPC)">Signal (IPC)</a></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>signal</th>
+      <th style="text-align: center">can be caught or ignored</th>
+      <th> </th>
+      <th>내용</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGINT</code></td>
+      <td style="text-align: center">O</td>
+      <td>interrupt signal</td>
+      <td><strong>ctrl-c</strong>. to provide a mechanism for an orderly, <strong>graceful shutdown</strong>. “user-initiated <strong>happy</strong> termination”</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGTERM</code></td>
+      <td style="text-align: center">O</td>
+      <td>termination signal</td>
+      <td>to kill the process, <strong>gracefully</strong> or not, but to first allow it a chance to cleanup.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGKILL</code></td>
+      <td style="text-align: center">X</td>
+      <td>kill signal</td>
+      <td>프로세스 <strong>즉시</strong> 죽임!! 최후의 수단!!</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGQUIT</code></td>
+      <td style="text-align: center">O</td>
+      <td>dump core signal</td>
+      <td><strong>ctrl-\</strong>. to provide a mechanism for the user to abort the process. “user-initiated <strong>unhappy</strong> termination”</td>
+    </tr>
+    <tr>
+      <td>SIGHUP</td>
+      <td style="text-align: center"> </td>
+      <td>Terminate</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">SIGSTOP</code></td>
+      <td style="text-align: center">X</td>
+      <td>pause signal</td>
+      <td>resuming via <code class="language-plaintext highlighter-rouge">SIGCONT</code></td>
+    </tr>
+    <tr>
+      <td>SIGCHLD</td>
+      <td style="text-align: center"> </td>
+      <td> </td>
+      <td>Child process terminated, stopped, or continued</td>
+    </tr>
+    <tr>
+      <td>SIGWINCH</td>
+      <td style="text-align: center"> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="python에서-처리">Python에서 처리</h4>
+
+<ul>
+  <li><a href="https://docs.python.org/3.7/library/signal.html">Python에서 처리: signal — Set handlers for asynchronous events</a></li>
+  <li>https://codeday.me/ko/qa/20190529/660372.html (Python 2.X)</li>
+  <li>https://code-examples.net/ko/docs/python~3.7/library/signal</li>
+  <li>http://blog.kichul.co.kr/2018/01/12/python%EC%97%90%EC%84%9C-signal-%EC%B2%98%EB%A6%AC/</li>
+</ul>
+
+<h4 id="uwsgi에서-처리">uWSGI에서 처리</h4>
+
+<ul>
+  <li>
+    <p><a href="https://www.techatbloomberg.com/blog/configuring-uwsgi-production-deployment/">Configuring uWSGI for Production Deployment</a></p>
+
+    <ul>
+      <li>
+        <p>아래 설정 절대 안 먹는다. 해도 python에서 signal trap 안된다.</p>
+
+        <div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">py-call-osafterfork</span> <span class="p">=</span> <span class="s">true</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>하긴 먹어도 쓸데가 없다</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><a href="https://uwsgi-docs.readthedocs.io/en/latest/Management.html#signals-for-controlling-uwsgi">Signals for controlling uWSGI</a></p>
+
+    <ul>
+      <li>graceful하게 shutdown하는게 <strong>없다!!</strong> 나머지는 그냥 immediately kill 해버린다
+        <ul>
+          <li>SIGHUP이 그나마 graceful 한데 reload를 해버린다</li>
+          <li>얼씨구 Windows는 SIGHUP이 없다</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Signal</th>
+      <th>Description</th>
+      <th>Convenience command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SIGHUP</td>
+      <td><strong>gracefully reload</strong> all the workers and the master process</td>
+      <td><code class="language-plaintext highlighter-rouge">--reload</code></td>
+    </tr>
+    <tr>
+      <td>SIGTERM</td>
+      <td><strong>brutally reload</strong> all the workers and the master process</td>
+      <td>(use <code class="language-plaintext highlighter-rouge">--die-on-term</code> to respect the convention of shutting down the instance)</td>
+    </tr>
+    <tr>
+      <td>SIGINT</td>
+      <td><strong>immediately</strong> kill the entire uWSGI stack</td>
+      <td><code class="language-plaintext highlighter-rouge">--stop</code></td>
+    </tr>
+    <tr>
+      <td>SIGQUIT</td>
+      <td><strong>immediately</strong> kill the entire uWSGI stack</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="supervisord에서-처리">Supervisord에서 처리</h4>
+
+<ul>
+  <li>https://serverfault.com/questions/386319/is-supervisord-shutting-down-gracefully
+    <ul>
+      <li>야간데…</li>
+      <li><code class="language-plaintext highlighter-rouge">stopsignal</code>
+        <ul>
+          <li>The signal used to kill the program when a stop is requested.  This can be any of TERM, HUP, INT, QUIT, KILL, USR1, or USR2.</li>
+          <li><em>Default</em>: TERM</li>
+          <li><em>Required</em>:  No.</li>
+        </ul>
+      </li>
+      <li><code class="language-plaintext highlighter-rouge">stopwaitsecs</code>
+        <ul>
+          <li>The number of seconds to wait for the OS to return a SIGCHLD to <strong>supervisord</strong> after the program has been sent a stopsignal. If this number of seconds elapses before <strong>supervisord</strong> receives a SIGCHLD from the process, <strong>supervisord</strong> will attempt to kill it with a final SIGKILL.</li>
+          <li><em>Default</em>: 10</li>
+          <li><em>Required</em>:  No.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="docker에서-처리">Docker에서 처리</h4>
+
+<ul>
+  <li><a href="https://www.ctl.io/developers/blog/post/gracefully-stopping-docker-containers/">Gracefully Stopping Docker Containers</a></li>
+  <li>https://codeday.me/ko/qa/20190529/660372.html</li>
+</ul>
+
+<h4 id="k8s에서-처리">K8s에서 처리</h4>
+
+<ul>
+  <li>https://pracucci.com/graceful-shutdown-of-kubernetes-pods.html</li>
+  <li><a href="http://kubernetes.io/docs/user-guide/pods/#termination-of-pods">Kubernetes: Termination of pods</a></li>
+  <li><a href="http://kubernetes.io/docs/user-guide/production-pods/#lifecycle-hooks-and-termination-notice">Kubernetes: Pods lifecycle hooks and termination notice</a></li>
+  <li><a href="http://kubernetes.io/docs/user-guide/container-environment/">Kubernetes: Container lifecycle hooks</a></li>
+  <li><a href="https://tech.kakao.com/2018/12/24/kubernetes-deploy/">kubernetes를 이용한 서비스 무중단 배포</a>
+    <ul>
+      <li>terminationGracePeriodSeconds</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2안-재처리">2안) 재처리</h3>
+
+<h3 id="3안-운영-프로세스로-해결">3안) 운영 프로세스로 해결</h3>
+
+<p>shutdown 필요할 시</p>
+
+<ol>
+  <li>request 더이상 발생 안되게 조치 하고</li>
+  <li>충분한 시간 경과 후 (request 처리 중이던 pod가 처리를 모두 마친 후)</li>
+  <li>shutdown 진행</li>
+</ol>
+
+<h3 id="python-signal-trap-예">python signal trap 예</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span> <span class="o">=</span> <span class="n">flask</span><span class="p">.</span><span class="n">Blueprint</span><span class="p">(</span><span class="s">'app'</span><span class="p">,</span> <span class="n">__name__</span><span class="p">)</span>
+
+<span class="c1"># Graceful Shutdown (signal 처리) 구현
+</span><span class="n">imBusy</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">graceful_shutdown_handler</span><span class="p">(</span><span class="n">signum</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"I am dying.. [%s]"</span> <span class="o">%</span> <span class="n">signum</span><span class="p">)</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">"working [%s]"</span> <span class="o">%</span> <span class="n">imBusy</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">imBusy</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>        
+
+    <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">"Good Bye"</span><span class="p">)</span>
+    <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># signal 처리 등록
+</span><span class="k">try</span><span class="p">:</span>
+    <span class="n">signals</span> <span class="o">=</span> <span class="p">[</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="n">signal</span><span class="p">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">signal</span><span class="p">.</span><span class="n">SIGHUP</span><span class="p">]</span>
+<span class="k">except</span><span class="p">:</span>    
+    <span class="c1"># Windows에는 signal.SIGHUP 없음
+</span>    <span class="n">signals</span> <span class="o">=</span> <span class="p">[</span><span class="n">signal</span><span class="p">.</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="n">signal</span><span class="p">.</span><span class="n">SIGINT</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">sig</span> <span class="ow">in</span> <span class="n">signals</span><span class="p">:</span>
+    <span class="n">signal</span><span class="p">.</span><span class="n">signal</span><span class="p">(</span><span class="n">sig</span><span class="p">,</span> <span class="n">graceful_shutdown_handler</span><span class="p">)</span> 
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">before_app_request</span>
+<span class="k">def</span> <span class="nf">imbusy</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">imBusy</span>
+    <span class="n">imBusy</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">threading</span><span class="p">.</span><span class="n">currentThread</span><span class="p">().</span><span class="n">name</span><span class="p">)</span>
+
+<span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">after_app_request</span>
+<span class="k">def</span> <span class="nf">solong</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">imBusy</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">"remove [%s]"</span> <span class="o">%</span> <span class="n">threading</span><span class="p">.</span><span class="n">currentThread</span><span class="p">().</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">imBusy</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="n">threading</span><span class="p">.</span><span class="n">currentThread</span><span class="p">().</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+</code></pre></div></div>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://everlearningemployee.github.io/blog/post/container_graceful_shutdown.html';
+      this.page.identifier = 'https://everlearningemployee.github.io/blog/post/container_graceful_shutdown.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://everlearningemployee.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/post/container_graceful_shutdown.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>영고라인</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://www.facebook.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#facebook"></use></svg></a></li><li><a rel="me" href="https://github.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.youtube.com/channel/UCuqelMVE6ZKFhv8tP8n-FkA" target="_blank" title="YouTube"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#youtube"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

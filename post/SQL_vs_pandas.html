@@ -1,0 +1,6834 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>SQL vs. Pandas | [공부하는 회사원] 빨강달</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="SQL vs. Pandas" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="비슷하구나" />
+<meta property="og:description" content="비슷하구나" />
+<link rel="canonical" href="https://everlearningemployee.github.io/blog/post/SQL_vs_pandas.html" />
+<meta property="og:url" content="https://everlearningemployee.github.io/blog/post/SQL_vs_pandas.html" />
+<meta property="og:site_name" content="[공부하는 회사원] 빨강달" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-23T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="SQL vs. Pandas" />
+<script type="application/ld+json">
+{"url":"https://everlearningemployee.github.io/blog/post/SQL_vs_pandas.html","@type":"BlogPosting","headline":"SQL vs. Pandas","dateModified":"2020-08-23T00:00:00-05:00","datePublished":"2020-08-23T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://everlearningemployee.github.io/blog/post/SQL_vs_pandas.html"},"description":"비슷하구나","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://everlearningemployee.github.io/blog/feed.xml" title="[공부하는 회사원] 빨강달" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">[공부하는 회사원] 빨강달</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">SQL vs. Pandas</h1><p class="page-description">비슷하구나</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-08-23T00:00:00-05:00" itemprop="datePublished">
+        Aug 23, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      22 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#pandas">pandas</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#SQL">SQL</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/everlearningemployee/blog/tree/master/_notebooks/2020-08-23-SQL_vs_pandas.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/everlearningemployee/blog/master?filepath=_notebooks%2F2020-08-23-SQL_vs_pandas.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/everlearningemployee/blog/blob/master/_notebooks/2020-08-23-SQL_vs_pandas.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Feverlearningemployee%2Fblog%2Fblob%2Fmaster%2F_notebooks%2F2020-08-23-SQL_vs_pandas.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/blog/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Pandas-import-+-데이터-불러오기">Pandas import + 데이터 불러오기 </a></li>
+<li class="toc-entry toc-h2"><a href="#Dataframe">Dataframe </a></li>
+<li class="toc-entry toc-h2"><a href="#SELECT,-WHERE,-DISTINCT,-LIMIT">SELECT, WHERE, DISTINCT, LIMIT </a></li>
+<li class="toc-entry toc-h2"><a href="#SELECT-with-multiple-conditions">SELECT with multiple conditions </a></li>
+<li class="toc-entry toc-h2"><a href="#ORDER-BY">ORDER BY </a></li>
+<li class="toc-entry toc-h2"><a href="#IN…-NOT-IN">IN… NOT IN </a></li>
+<li class="toc-entry toc-h2"><a href="#GROUP-BY,-COUNT,-SUM,-ORDER-BY">GROUP BY, COUNT, SUM, ORDER BY </a></li>
+<li class="toc-entry toc-h2"><a href="#HAVING">HAVING </a></li>
+<li class="toc-entry toc-h2"><a href="#Top-N-records">Top N records </a></li>
+<li class="toc-entry toc-h2"><a href="#Aggregate-functions-(MIN,-MAX,-MEAN)">Aggregate functions (MIN, MAX, MEAN) </a></li>
+<li class="toc-entry toc-h2"><a href="#JOIN">JOIN </a></li>
+<li class="toc-entry toc-h2"><a href="#UNION-ALL-and-UNION">UNION ALL and UNION </a></li>
+<li class="toc-entry toc-h2"><a href="#INSERT">INSERT </a></li>
+<li class="toc-entry toc-h2"><a href="#UPDATE">UPDATE </a></li>
+<li class="toc-entry toc-h2"><a href="#Immutability">Immutability </a></li>
+<li class="toc-entry toc-h2"><a href="#DELETE">DELETE </a></li>
+<li class="toc-entry toc-h2"><a href="#Pandas에서-직접-SQL-구문-실행하기">Pandas에서 직접 SQL 구문 실행하기 </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-08-23-SQL_vs_pandas.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p></p>
+<div class="flash">
+    <svg class="octicon octicon-info" viewbox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"></path></svg>
+    <strong>Note: </strong>작성중
+</div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>아래 문서를 공부함</p>
+<ul>
+<li>
+<a href="https://link.medium.com/rqPEDzQ898">How to rewrite your SQL queries in Pandas, and more</a> by <a href="https://medium.com/@itruong">Irina Truong</a>
+</li>
+<li>pandas <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/index.html#getting-started">Getting started</a> 문서: <a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/comparison/comparison_with_sql.html">Comparison with SQL</a>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install pandas
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Requirement already satisfied: pandas in d:\bin\miniconda3\envs\blog\lib\site-packages (1.1.1)
+Requirement already satisfied: pytz&gt;=2017.2 in d:\bin\miniconda3\envs\blog\lib\site-packages (from pandas) (2020.1)
+Requirement already satisfied: python-dateutil&gt;=2.7.3 in d:\bin\miniconda3\envs\blog\lib\site-packages (from pandas) (2.8.1)
+Requirement already satisfied: numpy&gt;=1.15.4 in d:\bin\miniconda3\envs\blog\lib\site-packages (from pandas) (1.19.1)
+Requirement already satisfied: six&gt;=1.5 in d:\bin\miniconda3\envs\blog\lib\site-packages (from python-dateutil&gt;=2.7.3-&gt;pandas) (1.15.0)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pandas-import-+-데이터-불러오기">
+<a class="anchor" href="#Pandas-import-+-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%88%EB%9F%AC%EC%98%A4%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pandas import + 데이터 불러오기<a class="anchor-link" href="#Pandas-import-+-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B6%88%EB%9F%AC%EC%98%A4%EA%B8%B0"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">airports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://ourairports.com/data/airports.csv'</span><span class="p">)</span>
+<span class="n">airport_freq</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://ourairports.com/data/airport-frequencies.csv'</span><span class="p">)</span>
+<span class="n">runways</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://ourairports.com/data/runways.csv'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">airports</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pandas.core.frame.DataFrame</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dataframe">
+<a class="anchor" href="#Dataframe" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dataframe<a class="anchor-link" href="#Dataframe"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>ident</th>
+      <th>type</th>
+      <th>name</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+      <th>continent</th>
+      <th>iso_country</th>
+      <th>iso_region</th>
+      <th>municipality</th>
+      <th>scheduled_service</th>
+      <th>gps_code</th>
+      <th>iata_code</th>
+      <th>local_code</th>
+      <th>home_link</th>
+      <th>wikipedia_link</th>
+      <th>keywords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6523</td>
+      <td>00A</td>
+      <td>heliport</td>
+      <td>Total Rf Heliport</td>
+      <td>40.070801</td>
+      <td>-74.933601</td>
+      <td>11.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-PA</td>
+      <td>Bensalem</td>
+      <td>no</td>
+      <td>00A</td>
+      <td>NaN</td>
+      <td>00A</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>323361</td>
+      <td>00AA</td>
+      <td>small_airport</td>
+      <td>Aero B Ranch Airport</td>
+      <td>38.704022</td>
+      <td>-101.473911</td>
+      <td>3435.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-KS</td>
+      <td>Leoti</td>
+      <td>no</td>
+      <td>00AA</td>
+      <td>NaN</td>
+      <td>00AA</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6524</td>
+      <td>00AK</td>
+      <td>small_airport</td>
+      <td>Lowell Field</td>
+      <td>59.949200</td>
+      <td>-151.695999</td>
+      <td>450.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6525</td>
+      <td>00AL</td>
+      <td>small_airport</td>
+      <td>Epps Airpark</td>
+      <td>34.864799</td>
+      <td>-86.770302</td>
+      <td>820.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AL</td>
+      <td>Harvest</td>
+      <td>no</td>
+      <td>00AL</td>
+      <td>NaN</td>
+      <td>00AL</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(57376, 18)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index(['id', 'ident', 'type', 'name', 'latitude_deg', 'longitude_deg',
+       'elevation_ft', 'continent', 'iso_country', 'iso_region',
+       'municipality', 'scheduled_service', 'gps_code', 'iata_code',
+       'local_code', 'home_link', 'wikipedia_link', 'keywords'],
+      dtype='object')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>57376.000000</td>
+      <td>57376.000000</td>
+      <td>57376.000000</td>
+      <td>49557.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>93753.354469</td>
+      <td>25.571000</td>
+      <td>-34.611389</td>
+      <td>1253.089210</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>127917.359277</td>
+      <td>27.282870</td>
+      <td>79.909407</td>
+      <td>1615.832743</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>2.000000</td>
+      <td>-90.000000</td>
+      <td>-179.876999</td>
+      <td>-1266.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>14472.750000</td>
+      <td>7.665290</td>
+      <td>-92.046148</td>
+      <td>208.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>28960.500000</td>
+      <td>36.222551</td>
+      <td>-71.458750</td>
+      <td>722.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>45914.250000</td>
+      <td>43.764555</td>
+      <td>14.537073</td>
+      <td>1517.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>335599.000000</td>
+      <td>90.000000</td>
+      <td>179.999894</td>
+      <td>29977.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SELECT,-WHERE,-DISTINCT,-LIMIT">
+<a class="anchor" href="#SELECT,-WHERE,-DISTINCT,-LIMIT" aria-hidden="true"><span class="octicon octicon-link"></span></a>SELECT, WHERE, DISTINCT, LIMIT<a class="anchor-link" href="#SELECT,-WHERE,-DISTINCT,-LIMIT"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="o">*</span> 
+  <span class="k">from</span> <span class="n">airports</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>ident</th>
+      <th>type</th>
+      <th>name</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+      <th>continent</th>
+      <th>iso_country</th>
+      <th>iso_region</th>
+      <th>municipality</th>
+      <th>scheduled_service</th>
+      <th>gps_code</th>
+      <th>iata_code</th>
+      <th>local_code</th>
+      <th>home_link</th>
+      <th>wikipedia_link</th>
+      <th>keywords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6523</td>
+      <td>00A</td>
+      <td>heliport</td>
+      <td>Total Rf Heliport</td>
+      <td>40.070801</td>
+      <td>-74.933601</td>
+      <td>11.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-PA</td>
+      <td>Bensalem</td>
+      <td>no</td>
+      <td>00A</td>
+      <td>NaN</td>
+      <td>00A</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>323361</td>
+      <td>00AA</td>
+      <td>small_airport</td>
+      <td>Aero B Ranch Airport</td>
+      <td>38.704022</td>
+      <td>-101.473911</td>
+      <td>3435.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-KS</td>
+      <td>Leoti</td>
+      <td>no</td>
+      <td>00AA</td>
+      <td>NaN</td>
+      <td>00AA</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6524</td>
+      <td>00AK</td>
+      <td>small_airport</td>
+      <td>Lowell Field</td>
+      <td>59.949200</td>
+      <td>-151.695999</td>
+      <td>450.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6525</td>
+      <td>00AL</td>
+      <td>small_airport</td>
+      <td>Epps Airpark</td>
+      <td>34.864799</td>
+      <td>-86.770302</td>
+      <td>820.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AL</td>
+      <td>Harvest</td>
+      <td>no</td>
+      <td>00AL</td>
+      <td>NaN</td>
+      <td>00AL</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6526</td>
+      <td>00AR</td>
+      <td>closed</td>
+      <td>Newport Hospital &amp; Clinic Heliport</td>
+      <td>35.608700</td>
+      <td>-91.254898</td>
+      <td>237.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AR</td>
+      <td>Newport</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>00AR</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>57371</th>
+      <td>317861</td>
+      <td>ZYYK</td>
+      <td>medium_airport</td>
+      <td>Yingkou Lanqi Airport</td>
+      <td>40.542524</td>
+      <td>122.358600</td>
+      <td>0.0</td>
+      <td>AS</td>
+      <td>CN</td>
+      <td>CN-21</td>
+      <td>Yingkou</td>
+      <td>yes</td>
+      <td>ZYYK</td>
+      <td>YKH</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>https://en.wikipedia.org/wiki/Yingkou_Lanqi_Ai...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57372</th>
+      <td>32753</td>
+      <td>ZYYY</td>
+      <td>medium_airport</td>
+      <td>Shenyang Dongta Airport</td>
+      <td>41.784401</td>
+      <td>123.496002</td>
+      <td>NaN</td>
+      <td>AS</td>
+      <td>CN</td>
+      <td>CN-21</td>
+      <td>Shenyang</td>
+      <td>no</td>
+      <td>ZYYY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57373</th>
+      <td>46378</td>
+      <td>ZZ-0001</td>
+      <td>heliport</td>
+      <td>Sealand Helipad</td>
+      <td>51.894444</td>
+      <td>1.482500</td>
+      <td>40.0</td>
+      <td>EU</td>
+      <td>GB</td>
+      <td>GB-ENG</td>
+      <td>Sealand</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>http://www.sealandgov.org/</td>
+      <td>https://en.wikipedia.org/wiki/Principality_of_...</td>
+      <td>Roughs Tower Helipad</td>
+    </tr>
+    <tr>
+      <th>57374</th>
+      <td>307326</td>
+      <td>ZZ-0002</td>
+      <td>small_airport</td>
+      <td>Glorioso Islands Airstrip</td>
+      <td>-11.584278</td>
+      <td>47.296389</td>
+      <td>11.0</td>
+      <td>AF</td>
+      <td>TF</td>
+      <td>TF-U-A</td>
+      <td>Grande Glorieuse</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57375</th>
+      <td>313629</td>
+      <td>ZZZZ</td>
+      <td>small_airport</td>
+      <td>Satsuma Iōjima Airport</td>
+      <td>30.784722</td>
+      <td>130.270556</td>
+      <td>338.0</td>
+      <td>AS</td>
+      <td>JP</td>
+      <td>JP-46</td>
+      <td>Mishima-Mura</td>
+      <td>no</td>
+      <td>RJX7</td>
+      <td>NaN</td>
+      <td>RJX7</td>
+      <td>NaN</td>
+      <td>http://wikimapia.org/6705190/Satsuma-Iwo-jima-...</td>
+      <td>SATSUMA,IWOJIMA,RJX7</td>
+    </tr>
+  </tbody>
+</table>
+<p>57376 rows × 18 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">municipality</span> 
+  <span class="k">from</span> <span class="n">airports</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sr</span> <span class="o">=</span> <span class="n">airports</span><span class="o">.</span><span class="n">municipality</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">sr</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'pandas.core.series.Series'&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sr</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0                Bensalem
+1                   Leoti
+2            Anchor Point
+3                 Harvest
+4                 Newport
+               ...       
+57371             Yingkou
+57372            Shenyang
+57373             Sealand
+57374    Grande Glorieuse
+57375        Mishima-Mura
+Name: municipality, Length: 57376, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">municipality</span> 
+  <span class="k">from</span> <span class="n">airports</span>
+ <span class="k">limit</span> <span class="mi">4</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">municipality</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0        Bensalem
+1           Leoti
+2    Anchor Point
+3         Harvest
+Name: municipality, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">municipality</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0        Bensalem
+1           Leoti
+2    Anchor Point
+3         Harvest
+Name: municipality, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">ident</span><span class="p">,</span> 
+       <span class="n">name</span><span class="p">,</span> 
+       <span class="n">municipality</span> 
+  <span class="k">from</span> <span class="n">airports</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">airports</span><span class="p">[[</span><span class="s1">'ident'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]]</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pandas.core.frame.DataFrame</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ident</th>
+      <th>name</th>
+      <th>municipality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>00A</td>
+      <td>Total Rf Heliport</td>
+      <td>Bensalem</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>00AA</td>
+      <td>Aero B Ranch Airport</td>
+      <td>Leoti</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>00AK</td>
+      <td>Lowell Field</td>
+      <td>Anchor Point</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>00AL</td>
+      <td>Epps Airpark</td>
+      <td>Harvest</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>00AR</td>
+      <td>Newport Hospital &amp; Clinic Heliport</td>
+      <td>Newport</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>57371</th>
+      <td>ZYYK</td>
+      <td>Yingkou Lanqi Airport</td>
+      <td>Yingkou</td>
+    </tr>
+    <tr>
+      <th>57372</th>
+      <td>ZYYY</td>
+      <td>Shenyang Dongta Airport</td>
+      <td>Shenyang</td>
+    </tr>
+    <tr>
+      <th>57373</th>
+      <td>ZZ-0001</td>
+      <td>Sealand Helipad</td>
+      <td>Sealand</td>
+    </tr>
+    <tr>
+      <th>57374</th>
+      <td>ZZ-0002</td>
+      <td>Glorioso Islands Airstrip</td>
+      <td>Grande Glorieuse</td>
+    </tr>
+    <tr>
+      <th>57375</th>
+      <td>ZZZZ</td>
+      <td>Satsuma Iōjima Airport</td>
+      <td>Mishima-Mura</td>
+    </tr>
+  </tbody>
+</table>
+<p>57376 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="o">*</span> 
+  <span class="k">from</span> <span class="n">airports</span> 
+ <span class="k">where</span> <span class="n">municipality</span> <span class="o">=</span> <span class="s1">'Anchor Point'</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">municipality</span> <span class="o">==</span> <span class="s1">'Anchor Point'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>ident</th>
+      <th>type</th>
+      <th>name</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+      <th>continent</th>
+      <th>iso_country</th>
+      <th>iso_region</th>
+      <th>municipality</th>
+      <th>scheduled_service</th>
+      <th>gps_code</th>
+      <th>iata_code</th>
+      <th>local_code</th>
+      <th>home_link</th>
+      <th>wikipedia_link</th>
+      <th>keywords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>6524</td>
+      <td>00AK</td>
+      <td>small_airport</td>
+      <td>Lowell Field</td>
+      <td>59.9492</td>
+      <td>-151.695999</td>
+      <td>450.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10523</th>
+      <td>16097</td>
+      <td>AK00</td>
+      <td>small_airport</td>
+      <td>Anchor River Airpark</td>
+      <td>59.7967</td>
+      <td>-151.863007</td>
+      <td>120.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>AK00</td>
+      <td>NaN</td>
+      <td>AK00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="p">[</span><span class="s1">'municipality'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'Anchor Point'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>ident</th>
+      <th>type</th>
+      <th>name</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+      <th>continent</th>
+      <th>iso_country</th>
+      <th>iso_region</th>
+      <th>municipality</th>
+      <th>scheduled_service</th>
+      <th>gps_code</th>
+      <th>iata_code</th>
+      <th>local_code</th>
+      <th>home_link</th>
+      <th>wikipedia_link</th>
+      <th>keywords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>6524</td>
+      <td>00AK</td>
+      <td>small_airport</td>
+      <td>Lowell Field</td>
+      <td>59.9492</td>
+      <td>-151.695999</td>
+      <td>450.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10523</th>
+      <td>16097</td>
+      <td>AK00</td>
+      <td>small_airport</td>
+      <td>Anchor River Airpark</td>
+      <td>59.7967</td>
+      <td>-151.863007</td>
+      <td>120.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>AK00</td>
+      <td>NaN</td>
+      <td>AK00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>ident</th>
+      <th>type</th>
+      <th>name</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+      <th>continent</th>
+      <th>iso_country</th>
+      <th>iso_region</th>
+      <th>municipality</th>
+      <th>scheduled_service</th>
+      <th>gps_code</th>
+      <th>iata_code</th>
+      <th>local_code</th>
+      <th>home_link</th>
+      <th>wikipedia_link</th>
+      <th>keywords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>6524</td>
+      <td>00AK</td>
+      <td>small_airport</td>
+      <td>Lowell Field</td>
+      <td>59.9492</td>
+      <td>-151.695999</td>
+      <td>450.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">municipality</span> <span class="o">==</span> <span class="s1">'Anchor Point'</span><span class="p">]</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pandas.core.frame.DataFrame</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>ident</th>
+      <th>type</th>
+      <th>name</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+      <th>continent</th>
+      <th>iso_country</th>
+      <th>iso_region</th>
+      <th>municipality</th>
+      <th>scheduled_service</th>
+      <th>gps_code</th>
+      <th>iata_code</th>
+      <th>local_code</th>
+      <th>home_link</th>
+      <th>wikipedia_link</th>
+      <th>keywords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>6524</td>
+      <td>00AK</td>
+      <td>small_airport</td>
+      <td>Lowell Field</td>
+      <td>59.9492</td>
+      <td>-151.695999</td>
+      <td>450.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10523</th>
+      <td>16097</td>
+      <td>AK00</td>
+      <td>small_airport</td>
+      <td>Anchor River Airpark</td>
+      <td>59.7967</td>
+      <td>-151.863007</td>
+      <td>120.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>AK00</td>
+      <td>NaN</td>
+      <td>AK00</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">ident</span><span class="p">,</span> 
+       <span class="n">name</span><span class="p">,</span> 
+       <span class="n">municipality</span> 
+  <span class="k">from</span> <span class="n">airports</span> 
+ <span class="k">where</span> <span class="n">municipality</span> <span class="o">=</span> <span class="s1">'Los Angeles'</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">municipality</span> <span class="o">==</span> <span class="s1">'Los Angeles'</span><span class="p">]</span> \
+             <span class="p">[[</span><span class="s1">'ident'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ident</th>
+      <th>name</th>
+      <th>municipality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>71</th>
+      <td>01CN</td>
+      <td>Los Angeles County Sheriff's Department Heliport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>643</th>
+      <td>0CA0</td>
+      <td>Drew Medical Center Heliport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>645</th>
+      <td>0CA2</td>
+      <td>VA Greater Los Angeles Health Care Center Heli...</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>670</th>
+      <td>0CL7</td>
+      <td>Good Samaritan Hospital Heliport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>1465</th>
+      <td>14L</td>
+      <td>Devonshire Area Heliport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>52334</th>
+      <td>US-1472</td>
+      <td>Murdock Plaza Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>52356</th>
+      <td>US-1494</td>
+      <td>Center West Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>52358</th>
+      <td>US-1496</td>
+      <td>W Hollywood Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>52359</th>
+      <td>US-1497</td>
+      <td>1600 Vine Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>52360</th>
+      <td>US-1498</td>
+      <td>Vine Street Tower Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[[</span><span class="s1">'ident'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]]</span> \
+            <span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">municipality</span> <span class="o">==</span> <span class="s1">'Los Angeles'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ident</th>
+      <th>name</th>
+      <th>municipality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>71</th>
+      <td>01CN</td>
+      <td>Los Angeles County Sheriff's Department Heliport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>643</th>
+      <td>0CA0</td>
+      <td>Drew Medical Center Heliport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>645</th>
+      <td>0CA2</td>
+      <td>VA Greater Los Angeles Health Care Center Heli...</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>670</th>
+      <td>0CL7</td>
+      <td>Good Samaritan Hospital Heliport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>1465</th>
+      <td>14L</td>
+      <td>Devonshire Area Heliport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>52334</th>
+      <td>US-1472</td>
+      <td>Murdock Plaza Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>52356</th>
+      <td>US-1494</td>
+      <td>Center West Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>52358</th>
+      <td>US-1496</td>
+      <td>W Hollywood Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>52359</th>
+      <td>US-1497</td>
+      <td>1600 Vine Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>52360</th>
+      <td>US-1498</td>
+      <td>Vine Street Tower Helipad</td>
+      <td>Los Angeles</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="k">distinct</span> <span class="n">municipality</span> 
+  <span class="k">from</span> <span class="n">airport</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">municipality</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array(['Bensalem', 'Leoti', 'Anchor Point', ..., 'Sealand',
+       'Grande Glorieuse', 'Mishima-Mura'], dtype=object)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[[</span><span class="s1">'ident'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]]</span> <span class="c1">#.unique()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ident</th>
+      <th>name</th>
+      <th>municipality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>00A</td>
+      <td>Total Rf Heliport</td>
+      <td>Bensalem</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>00AA</td>
+      <td>Aero B Ranch Airport</td>
+      <td>Leoti</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>00AK</td>
+      <td>Lowell Field</td>
+      <td>Anchor Point</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>00AL</td>
+      <td>Epps Airpark</td>
+      <td>Harvest</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>00AR</td>
+      <td>Newport Hospital &amp; Clinic Heliport</td>
+      <td>Newport</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>57371</th>
+      <td>ZYYK</td>
+      <td>Yingkou Lanqi Airport</td>
+      <td>Yingkou</td>
+    </tr>
+    <tr>
+      <th>57372</th>
+      <td>ZYYY</td>
+      <td>Shenyang Dongta Airport</td>
+      <td>Shenyang</td>
+    </tr>
+    <tr>
+      <th>57373</th>
+      <td>ZZ-0001</td>
+      <td>Sealand Helipad</td>
+      <td>Sealand</td>
+    </tr>
+    <tr>
+      <th>57374</th>
+      <td>ZZ-0002</td>
+      <td>Glorioso Islands Airstrip</td>
+      <td>Grande Glorieuse</td>
+    </tr>
+    <tr>
+      <th>57375</th>
+      <td>ZZZZ</td>
+      <td>Satsuma Iōjima Airport</td>
+      <td>Mishima-Mura</td>
+    </tr>
+  </tbody>
+</table>
+<p>57376 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SELECT-with-multiple-conditions">
+<a class="anchor" href="#SELECT-with-multiple-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>SELECT with multiple conditions<a class="anchor-link" href="#SELECT-with-multiple-conditions"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="o">*</span> 
+  <span class="k">from</span> <span class="n">airports</span> 
+ <span class="k">where</span> <span class="n">iso_region</span> <span class="o">=</span> <span class="s1">'US-CA'</span> 
+   <span class="k">and</span> <span class="k">type</span> <span class="o">=</span> <span class="s1">'seaplane_base'</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">airports</span><span class="p">[(</span><span class="n">airports</span><span class="o">.</span><span class="n">iso_region</span> <span class="o">==</span> <span class="s1">'US-CA'</span><span class="p">)</span> 
+              <span class="o">&amp;</span> <span class="p">(</span><span class="n">airports</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'seaplane_base'</span><span class="p">)]</span> \
+             <span class="p">[[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'iso_region'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>iso_region</th>
+      <th>type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>984</th>
+      <td>San Luis Reservoir Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>2505</th>
+      <td>Commodore Center Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>6278</th>
+      <td>Konocti  - Clear Lake Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>13587</th>
+      <td>Folsom Lake Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>15932</th>
+      <td>Ferndale Resort Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>18323</th>
+      <td>Lake Berryessa Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>23853</th>
+      <td>Bridge Bay Resort Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>31879</th>
+      <td>Pebbly Beach Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>38693</th>
+      <td>Lake Oroville Landing Area Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>42411</th>
+      <td>Lost Isle Seaplane Base</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+    <tr>
+      <th>49939</th>
+      <td>Two Harbors Amphibious Terminal</td>
+      <td>US-CA</td>
+      <td>seaplane_base</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">ident</span><span class="p">,</span> 
+       <span class="n">name</span><span class="p">,</span> 
+       <span class="n">municipality</span> 
+  <span class="k">from</span> <span class="n">airports</span> 
+ <span class="k">where</span> <span class="n">iso_region</span> <span class="o">=</span> <span class="s1">'US-CA'</span> 
+   <span class="k">and</span> <span class="k">type</span> <span class="o">=</span> <span class="s1">'large_airport'</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[(</span><span class="n">airports</span><span class="o">.</span><span class="n">iso_region</span> <span class="o">==</span> <span class="s1">'US-CA'</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">airports</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'large_airport'</span><span class="p">)]</span> \
+             <span class="p">[[</span><span class="s1">'ident'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ident</th>
+      <th>name</th>
+      <th>municipality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>27512</th>
+      <td>KBAB</td>
+      <td>Beale Air Force Base</td>
+      <td>Marysville</td>
+    </tr>
+    <tr>
+      <th>28350</th>
+      <td>KEDW</td>
+      <td>Edwards Air Force Base</td>
+      <td>Edwards</td>
+    </tr>
+    <tr>
+      <th>29141</th>
+      <td>KLAX</td>
+      <td>Los Angeles International Airport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>29668</th>
+      <td>KOAK</td>
+      <td>Metropolitan Oakland International Airport</td>
+      <td>Oakland</td>
+    </tr>
+    <tr>
+      <th>29724</th>
+      <td>KONT</td>
+      <td>Ontario International Airport</td>
+      <td>Ontario</td>
+    </tr>
+    <tr>
+      <th>31245</th>
+      <td>KSAN</td>
+      <td>San Diego International Airport</td>
+      <td>San Diego</td>
+    </tr>
+    <tr>
+      <th>31285</th>
+      <td>KSFO</td>
+      <td>San Francisco International Airport</td>
+      <td>San Francisco</td>
+    </tr>
+    <tr>
+      <th>31306</th>
+      <td>KSJC</td>
+      <td>Norman Y. Mineta San Jose International Airport</td>
+      <td>San Jose</td>
+    </tr>
+    <tr>
+      <th>31328</th>
+      <td>KSMF</td>
+      <td>Sacramento International Airport</td>
+      <td>Sacramento</td>
+    </tr>
+    <tr>
+      <th>31334</th>
+      <td>KSNA</td>
+      <td>John Wayne Airport-Orange County Airport</td>
+      <td>Santa Ana</td>
+    </tr>
+    <tr>
+      <th>31383</th>
+      <td>KSUU</td>
+      <td>Travis Air Force Base</td>
+      <td>Fairfield</td>
+    </tr>
+    <tr>
+      <th>31617</th>
+      <td>KVBG</td>
+      <td>Vandenberg Air Force Base</td>
+      <td>Lompoc</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[[</span><span class="s1">'ident'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]]</span> \
+             <span class="p">[(</span><span class="n">airports</span><span class="o">.</span><span class="n">iso_region</span> <span class="o">==</span> <span class="s1">'US-CA'</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">airports</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'large_airport'</span><span class="p">)]</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ident</th>
+      <th>name</th>
+      <th>municipality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>27512</th>
+      <td>KBAB</td>
+      <td>Beale Air Force Base</td>
+      <td>Marysville</td>
+    </tr>
+    <tr>
+      <th>28350</th>
+      <td>KEDW</td>
+      <td>Edwards Air Force Base</td>
+      <td>Edwards</td>
+    </tr>
+    <tr>
+      <th>29141</th>
+      <td>KLAX</td>
+      <td>Los Angeles International Airport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>29668</th>
+      <td>KOAK</td>
+      <td>Metropolitan Oakland International Airport</td>
+      <td>Oakland</td>
+    </tr>
+    <tr>
+      <th>29724</th>
+      <td>KONT</td>
+      <td>Ontario International Airport</td>
+      <td>Ontario</td>
+    </tr>
+    <tr>
+      <th>31245</th>
+      <td>KSAN</td>
+      <td>San Diego International Airport</td>
+      <td>San Diego</td>
+    </tr>
+    <tr>
+      <th>31285</th>
+      <td>KSFO</td>
+      <td>San Francisco International Airport</td>
+      <td>San Francisco</td>
+    </tr>
+    <tr>
+      <th>31306</th>
+      <td>KSJC</td>
+      <td>Norman Y. Mineta San Jose International Airport</td>
+      <td>San Jose</td>
+    </tr>
+    <tr>
+      <th>31328</th>
+      <td>KSMF</td>
+      <td>Sacramento International Airport</td>
+      <td>Sacramento</td>
+    </tr>
+    <tr>
+      <th>31334</th>
+      <td>KSNA</td>
+      <td>John Wayne Airport-Orange County Airport</td>
+      <td>Santa Ana</td>
+    </tr>
+    <tr>
+      <th>31383</th>
+      <td>KSUU</td>
+      <td>Travis Air Force Base</td>
+      <td>Fairfield</td>
+    </tr>
+    <tr>
+      <th>31617</th>
+      <td>KVBG</td>
+      <td>Vandenberg Air Force Base</td>
+      <td>Lompoc</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="ORDER-BY">
+<a class="anchor" href="#ORDER-BY" aria-hidden="true"><span class="octicon octicon-link"></span></a>ORDER BY<a class="anchor-link" href="#ORDER-BY"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="o">*</span> 
+    <span class="k">from</span> <span class="n">airport_freq</span> 
+   <span class="k">where</span> <span class="n">airport_ident</span> <span class="o">=</span> <span class="s1">'KLAX'</span> 
+<span class="k">order</span> <span class="k">by</span> <span class="k">type</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airport_freq</span><span class="p">[</span><span class="n">airport_freq</span><span class="o">.</span><span class="n">airport_ident</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'type'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>airport_ref</th>
+      <th>airport_ident</th>
+      <th>type</th>
+      <th>description</th>
+      <th>frequency_mhz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>11952</th>
+      <td>60767</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>36.07</td>
+    </tr>
+    <tr>
+      <th>11953</th>
+      <td>60766</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>124.30</td>
+    </tr>
+    <tr>
+      <th>11954</th>
+      <td>60768</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>133.80</td>
+    </tr>
+    <tr>
+      <th>11955</th>
+      <td>60769</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>CLD</td>
+      <td>CLNC DEL</td>
+      <td>121.40</td>
+    </tr>
+    <tr>
+      <th>11956</th>
+      <td>60770</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>DEP</td>
+      <td>SOCAL DEP</td>
+      <td>124.30</td>
+    </tr>
+    <tr>
+      <th>11957</th>
+      <td>60771</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>GND</td>
+      <td>GND</td>
+      <td>121.65</td>
+    </tr>
+    <tr>
+      <th>11958</th>
+      <td>60772</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>34.50</td>
+    </tr>
+    <tr>
+      <th>11959</th>
+      <td>60773</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>898.40</td>
+    </tr>
+    <tr>
+      <th>11960</th>
+      <td>60774</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>OPS</td>
+      <td>AF</td>
+      <td>37.22</td>
+    </tr>
+    <tr>
+      <th>11961</th>
+      <td>60775</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>TWR</td>
+      <td>TWR</td>
+      <td>119.80</td>
+    </tr>
+    <tr>
+      <th>11962</th>
+      <td>60776</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>UNIC</td>
+      <td>UNICOM</td>
+      <td>122.95</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="o">*</span> 
+    <span class="k">from</span> <span class="n">airport_freq</span> 
+   <span class="k">where</span> <span class="n">airport_ident</span> <span class="o">=</span> <span class="s1">'KLAX'</span> 
+<span class="k">order</span> <span class="k">by</span> <span class="k">type</span> <span class="k">desc</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airport_freq</span><span class="p">[</span><span class="n">airport_freq</span><span class="o">.</span><span class="n">airport_ident</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>airport_ref</th>
+      <th>airport_ident</th>
+      <th>type</th>
+      <th>description</th>
+      <th>frequency_mhz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>11962</th>
+      <td>60776</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>UNIC</td>
+      <td>UNICOM</td>
+      <td>122.95</td>
+    </tr>
+    <tr>
+      <th>11961</th>
+      <td>60775</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>TWR</td>
+      <td>TWR</td>
+      <td>119.80</td>
+    </tr>
+    <tr>
+      <th>11960</th>
+      <td>60774</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>OPS</td>
+      <td>AF</td>
+      <td>37.22</td>
+    </tr>
+    <tr>
+      <th>11958</th>
+      <td>60772</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>34.50</td>
+    </tr>
+    <tr>
+      <th>11959</th>
+      <td>60773</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>898.40</td>
+    </tr>
+    <tr>
+      <th>11957</th>
+      <td>60771</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>GND</td>
+      <td>GND</td>
+      <td>121.65</td>
+    </tr>
+    <tr>
+      <th>11956</th>
+      <td>60770</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>DEP</td>
+      <td>SOCAL DEP</td>
+      <td>124.30</td>
+    </tr>
+    <tr>
+      <th>11955</th>
+      <td>60769</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>CLD</td>
+      <td>CLNC DEL</td>
+      <td>121.40</td>
+    </tr>
+    <tr>
+      <th>11954</th>
+      <td>60768</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>133.80</td>
+    </tr>
+    <tr>
+      <th>11952</th>
+      <td>60767</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>36.07</td>
+    </tr>
+    <tr>
+      <th>11953</th>
+      <td>60766</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>124.30</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="IN…-NOT-IN">
+<a class="anchor" href="#IN%E2%80%A6-NOT-IN" aria-hidden="true"><span class="octicon octicon-link"></span></a>IN… NOT IN<a class="anchor-link" href="#IN%E2%80%A6-NOT-IN"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="o">*</span> 
+  <span class="k">from</span> <span class="n">airports</span> 
+ <span class="k">where</span> <span class="k">type</span> <span class="k">in</span> <span class="p">(</span><span class="s1">'heliport'</span><span class="p">,</span> <span class="s1">'balloonport'</span><span class="p">);</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">'heliport'</span><span class="p">,</span> <span class="s1">'balloonport'</span><span class="p">])]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>ident</th>
+      <th>type</th>
+      <th>name</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+      <th>continent</th>
+      <th>iso_country</th>
+      <th>iso_region</th>
+      <th>municipality</th>
+      <th>scheduled_service</th>
+      <th>gps_code</th>
+      <th>iata_code</th>
+      <th>local_code</th>
+      <th>home_link</th>
+      <th>wikipedia_link</th>
+      <th>keywords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6523</td>
+      <td>00A</td>
+      <td>heliport</td>
+      <td>Total Rf Heliport</td>
+      <td>40.070801</td>
+      <td>-74.933601</td>
+      <td>11.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-PA</td>
+      <td>Bensalem</td>
+      <td>no</td>
+      <td>00A</td>
+      <td>NaN</td>
+      <td>00A</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>322658</td>
+      <td>00CN</td>
+      <td>heliport</td>
+      <td>Kitchen Creek Helibase Heliport</td>
+      <td>32.727374</td>
+      <td>-116.459742</td>
+      <td>3350.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-CA</td>
+      <td>Pine Valley</td>
+      <td>no</td>
+      <td>00CN</td>
+      <td>NaN</td>
+      <td>00CN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>6532</td>
+      <td>00FD</td>
+      <td>heliport</td>
+      <td>Ringhaver Heliport</td>
+      <td>28.846600</td>
+      <td>-82.345398</td>
+      <td>25.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-FL</td>
+      <td>Riverview</td>
+      <td>no</td>
+      <td>00FD</td>
+      <td>NaN</td>
+      <td>00FD</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>6535</td>
+      <td>00GE</td>
+      <td>heliport</td>
+      <td>Caffrey Heliport</td>
+      <td>33.884201</td>
+      <td>-84.733902</td>
+      <td>957.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-GA</td>
+      <td>Hiram</td>
+      <td>no</td>
+      <td>00GE</td>
+      <td>NaN</td>
+      <td>00GE</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>6536</td>
+      <td>00HI</td>
+      <td>heliport</td>
+      <td>Kaupulehu Heliport</td>
+      <td>19.832715</td>
+      <td>-155.980233</td>
+      <td>43.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-HI</td>
+      <td>Kailua-Kona</td>
+      <td>no</td>
+      <td>00HI</td>
+      <td>NaN</td>
+      <td>00HI</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>56988</th>
+      <td>312611</td>
+      <td>ZA-0117</td>
+      <td>heliport</td>
+      <td>Pumba Helipad</td>
+      <td>-33.387799</td>
+      <td>26.410595</td>
+      <td>NaN</td>
+      <td>AF</td>
+      <td>ZA</td>
+      <td>ZA-EC</td>
+      <td>Nelson Mandela Bay</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>http://www.pumbagamereserve.co.za/amenities</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>56990</th>
+      <td>312624</td>
+      <td>ZA-0119</td>
+      <td>heliport</td>
+      <td>Cape Town Heliport</td>
+      <td>-33.901018</td>
+      <td>18.425936</td>
+      <td>NaN</td>
+      <td>AF</td>
+      <td>ZA</td>
+      <td>ZA-WC</td>
+      <td>NaN</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57011</th>
+      <td>318475</td>
+      <td>ZA-0140</td>
+      <td>heliport</td>
+      <td>Kuruman Hospital Heliport</td>
+      <td>-27.459904</td>
+      <td>23.443762</td>
+      <td>NaN</td>
+      <td>AF</td>
+      <td>ZA</td>
+      <td>ZA-NC</td>
+      <td>Kuruman</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57108</th>
+      <td>301278</td>
+      <td>ZIZ</td>
+      <td>heliport</td>
+      <td>Zamzama Heliport</td>
+      <td>26.710944</td>
+      <td>67.667250</td>
+      <td>128.0</td>
+      <td>AS</td>
+      <td>PK</td>
+      <td>PK-SD</td>
+      <td>Zamzama Gas Field</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>ZIZ</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57373</th>
+      <td>46378</td>
+      <td>ZZ-0001</td>
+      <td>heliport</td>
+      <td>Sealand Helipad</td>
+      <td>51.894444</td>
+      <td>1.482500</td>
+      <td>40.0</td>
+      <td>EU</td>
+      <td>GB</td>
+      <td>GB-ENG</td>
+      <td>Sealand</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>http://www.sealandgov.org/</td>
+      <td>https://en.wikipedia.org/wiki/Principality_of_...</td>
+      <td>Roughs Tower Helipad</td>
+    </tr>
+  </tbody>
+</table>
+<p>12031 rows × 18 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="o">*</span> 
+  <span class="k">from</span> <span class="n">airports</span> 
+ <span class="k">where</span> <span class="k">type</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="s1">'heliport'</span><span class="p">,</span> <span class="s1">'balloonport'</span><span class="p">);</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="o">~</span><span class="n">airports</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">'heliport'</span><span class="p">,</span> <span class="s1">'balloonport'</span><span class="p">])]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>ident</th>
+      <th>type</th>
+      <th>name</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+      <th>continent</th>
+      <th>iso_country</th>
+      <th>iso_region</th>
+      <th>municipality</th>
+      <th>scheduled_service</th>
+      <th>gps_code</th>
+      <th>iata_code</th>
+      <th>local_code</th>
+      <th>home_link</th>
+      <th>wikipedia_link</th>
+      <th>keywords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>323361</td>
+      <td>00AA</td>
+      <td>small_airport</td>
+      <td>Aero B Ranch Airport</td>
+      <td>38.704022</td>
+      <td>-101.473911</td>
+      <td>3435.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-KS</td>
+      <td>Leoti</td>
+      <td>no</td>
+      <td>00AA</td>
+      <td>NaN</td>
+      <td>00AA</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>6524</td>
+      <td>00AK</td>
+      <td>small_airport</td>
+      <td>Lowell Field</td>
+      <td>59.949200</td>
+      <td>-151.695999</td>
+      <td>450.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AK</td>
+      <td>Anchor Point</td>
+      <td>no</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>00AK</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6525</td>
+      <td>00AL</td>
+      <td>small_airport</td>
+      <td>Epps Airpark</td>
+      <td>34.864799</td>
+      <td>-86.770302</td>
+      <td>820.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AL</td>
+      <td>Harvest</td>
+      <td>no</td>
+      <td>00AL</td>
+      <td>NaN</td>
+      <td>00AL</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6526</td>
+      <td>00AR</td>
+      <td>closed</td>
+      <td>Newport Hospital &amp; Clinic Heliport</td>
+      <td>35.608700</td>
+      <td>-91.254898</td>
+      <td>237.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-AR</td>
+      <td>Newport</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>00AR</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>322127</td>
+      <td>00AS</td>
+      <td>small_airport</td>
+      <td>Fulton Airport</td>
+      <td>34.942803</td>
+      <td>-97.818019</td>
+      <td>1100.0</td>
+      <td>NaN</td>
+      <td>US</td>
+      <td>US-OK</td>
+      <td>Alex</td>
+      <td>no</td>
+      <td>00AS</td>
+      <td>NaN</td>
+      <td>00AS</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>57370</th>
+      <td>27244</td>
+      <td>ZYYJ</td>
+      <td>medium_airport</td>
+      <td>Yanji Chaoyangchuan Airport</td>
+      <td>42.882801</td>
+      <td>129.451004</td>
+      <td>624.0</td>
+      <td>AS</td>
+      <td>CN</td>
+      <td>CN-22</td>
+      <td>Yanji</td>
+      <td>yes</td>
+      <td>ZYYJ</td>
+      <td>YNJ</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>https://en.wikipedia.org/wiki/Yanji_Chaoyangch...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57371</th>
+      <td>317861</td>
+      <td>ZYYK</td>
+      <td>medium_airport</td>
+      <td>Yingkou Lanqi Airport</td>
+      <td>40.542524</td>
+      <td>122.358600</td>
+      <td>0.0</td>
+      <td>AS</td>
+      <td>CN</td>
+      <td>CN-21</td>
+      <td>Yingkou</td>
+      <td>yes</td>
+      <td>ZYYK</td>
+      <td>YKH</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>https://en.wikipedia.org/wiki/Yingkou_Lanqi_Ai...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57372</th>
+      <td>32753</td>
+      <td>ZYYY</td>
+      <td>medium_airport</td>
+      <td>Shenyang Dongta Airport</td>
+      <td>41.784401</td>
+      <td>123.496002</td>
+      <td>NaN</td>
+      <td>AS</td>
+      <td>CN</td>
+      <td>CN-21</td>
+      <td>Shenyang</td>
+      <td>no</td>
+      <td>ZYYY</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57374</th>
+      <td>307326</td>
+      <td>ZZ-0002</td>
+      <td>small_airport</td>
+      <td>Glorioso Islands Airstrip</td>
+      <td>-11.584278</td>
+      <td>47.296389</td>
+      <td>11.0</td>
+      <td>AF</td>
+      <td>TF</td>
+      <td>TF-U-A</td>
+      <td>Grande Glorieuse</td>
+      <td>no</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>57375</th>
+      <td>313629</td>
+      <td>ZZZZ</td>
+      <td>small_airport</td>
+      <td>Satsuma Iōjima Airport</td>
+      <td>30.784722</td>
+      <td>130.270556</td>
+      <td>338.0</td>
+      <td>AS</td>
+      <td>JP</td>
+      <td>JP-46</td>
+      <td>Mishima-Mura</td>
+      <td>no</td>
+      <td>RJX7</td>
+      <td>NaN</td>
+      <td>RJX7</td>
+      <td>NaN</td>
+      <td>http://wikimapia.org/6705190/Satsuma-Iwo-jima-...</td>
+      <td>SATSUMA,IWOJIMA,RJX7</td>
+    </tr>
+  </tbody>
+</table>
+<p>45345 rows × 18 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="GROUP-BY,-COUNT,-SUM,-ORDER-BY">
+<a class="anchor" href="#GROUP-BY,-COUNT,-SUM,-ORDER-BY" aria-hidden="true"><span class="octicon octicon-link"></span></a>GROUP BY, COUNT, SUM, ORDER BY<a class="anchor-link" href="#GROUP-BY,-COUNT,-SUM,-ORDER-BY"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">iso_country</span><span class="p">,</span> 
+         <span class="k">type</span><span class="p">,</span> 
+         <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> 
+    <span class="k">from</span> <span class="n">airports</span> 
+<span class="k">group</span> <span class="k">by</span> <span class="n">iso_country</span><span class="p">,</span> 
+         <span class="k">type</span> 
+<span class="k">order</span> <span class="k">by</span> <span class="n">iso_country</span><span class="p">,</span> 
+         <span class="k">type</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'iso_country'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>iso_country  type          
+AD           heliport            2
+AE           closed              1
+             heliport           21
+             large_airport       4
+             medium_airport      7
+                              ... 
+ZM           small_airport      94
+ZW           closed              2
+             large_airport       1
+             medium_airport      8
+             small_airport     128
+Length: 850, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">iso_country</span><span class="p">,</span> 
+         <span class="k">type</span><span class="p">,</span> 
+         <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> 
+    <span class="k">from</span> <span class="n">airports</span> 
+<span class="k">group</span> <span class="k">by</span> <span class="n">iso_country</span><span class="p">,</span> 
+         <span class="k">type</span> 
+<span class="k">order</span> <span class="k">by</span> <span class="n">iso_country</span><span class="p">,</span> 
+         <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">desc</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'iso_country'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>  \
+        <span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">'count'</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>  \
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">'iso_country'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>iso_country</th>
+      <th>type</th>
+      <th>count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AD</td>
+      <td>heliport</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AE</td>
+      <td>heliport</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>AE</td>
+      <td>small_airport</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AE</td>
+      <td>medium_airport</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AE</td>
+      <td>large_airport</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>843</th>
+      <td>ZM</td>
+      <td>large_airport</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>849</th>
+      <td>ZW</td>
+      <td>small_airport</td>
+      <td>128</td>
+    </tr>
+    <tr>
+      <th>848</th>
+      <td>ZW</td>
+      <td>medium_airport</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>846</th>
+      <td>ZW</td>
+      <td>closed</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>847</th>
+      <td>ZW</td>
+      <td>large_airport</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>850 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>이건 좀 더 봐야겠다</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'iso_country'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>id</th>
+      <th>latitude_deg</th>
+      <th>longitude_deg</th>
+      <th>elevation_ft</th>
+    </tr>
+    <tr>
+      <th>iso_country</th>
+      <th>type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AD</th>
+      <th>heliport</th>
+      <td>360076</td>
+      <td>85.057431</td>
+      <td>3.052711</td>
+      <td>3450.0</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">AE</th>
+      <th>closed</th>
+      <td>42256</td>
+      <td>23.298100</td>
+      <td>54.221699</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>heliport</th>
+      <td>6389256</td>
+      <td>519.481986</td>
+      <td>1140.423719</td>
+      <td>706.0</td>
+    </tr>
+    <tr>
+      <th>large_airport</th>
+      <td>316020</td>
+      <td>99.910756</td>
+      <td>220.694089</td>
+      <td>375.0</td>
+    </tr>
+    <tr>
+      <th>medium_airport</th>
+      <td>347052</td>
+      <td>172.974312</td>
+      <td>384.824277</td>
+      <td>1406.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>ZM</th>
+      <th>small_airport</th>
+      <td>11283607</td>
+      <td>-1294.718014</td>
+      <td>2640.091073</td>
+      <td>255681.0</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">ZW</th>
+      <th>closed</th>
+      <td>654955</td>
+      <td>-34.870921</td>
+      <td>54.895665</td>
+      <td>6779.0</td>
+    </tr>
+    <tr>
+      <th>large_airport</th>
+      <td>3005</td>
+      <td>-17.931801</td>
+      <td>31.092800</td>
+      <td>4887.0</td>
+    </tr>
+    <tr>
+      <th>medium_airport</th>
+      <td>24058</td>
+      <td>-151.194701</td>
+      <td>234.847004</td>
+      <td>26744.0</td>
+    </tr>
+    <tr>
+      <th>small_airport</th>
+      <td>19701085</td>
+      <td>-2384.126237</td>
+      <td>3832.335854</td>
+      <td>273732.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>850 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="HAVING">
+<a class="anchor" href="#HAVING" aria-hidden="true"><span class="octicon octicon-link"></span></a>HAVING<a class="anchor-link" href="#HAVING"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="k">type</span><span class="p">,</span> 
+         <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> 
+    <span class="k">from</span> <span class="n">airports</span> 
+   <span class="k">where</span> <span class="n">iso_country</span> <span class="o">=</span> <span class="s1">'US'</span> 
+<span class="k">group</span> <span class="k">by</span> <span class="k">type</span> 
+  <span class="k">having</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1000</span> 
+<span class="k">order</span> <span class="k">by</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">desc</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">iso_country</span> <span class="o">==</span> <span class="s1">'US'</span><span class="p">]</span> \
+             <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'type'</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">g</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">)</span> \
+             <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'type'</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> \
+             <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pandas.core.series.Series</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>type
+small_airport    13565
+heliport          6316
+closed            1930
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">heliport</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>6316</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Top-N-records">
+<a class="anchor" href="#Top-N-records" aria-hidden="true"><span class="octicon octicon-link"></span></a>Top N records<a class="anchor-link" href="#Top-N-records"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">iso_country</span> 
+    <span class="k">from</span> <span class="n">by_country</span> 
+<span class="k">order</span> <span class="k">by</span> <span class="k">size</span> <span class="k">desc</span> 
+   <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">by_country</span> <span class="o">=</span> <span class="n">airports</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'iso_country'</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>\
+                     <span class="o">.</span><span class="n">to_frame</span><span class="p">(</span><span class="s1">'airport_count'</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">by_country</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">'airport_count'</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>iso_country</th>
+      <th>airport_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>224</th>
+      <td>US</td>
+      <td>23260</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>BR</td>
+      <td>4987</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>CA</td>
+      <td>2796</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>AU</td>
+      <td>2019</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>MX</td>
+      <td>1405</td>
+    </tr>
+    <tr>
+      <th>117</th>
+      <td>KR</td>
+      <td>1374</td>
+    </tr>
+    <tr>
+      <th>74</th>
+      <td>GB</td>
+      <td>1203</td>
+    </tr>
+    <tr>
+      <th>184</th>
+      <td>RU</td>
+      <td>1121</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>DE</td>
+      <td>957</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>FR</td>
+      <td>894</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">iso_country</span> 
+    <span class="k">from</span> <span class="n">by_country</span> 
+   <span class="k">order</span> <span class="k">by</span> <span class="k">size</span> <span class="k">desc</span> 
+   <span class="k">limit</span> <span class="mi">10</span> 
+  <span class="k">offset</span> <span class="mi">10</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">by_country</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">'airport_count'</span><span class="p">)</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>iso_country</th>
+      <th>airport_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>117</th>
+      <td>KR</td>
+      <td>1374</td>
+    </tr>
+    <tr>
+      <th>74</th>
+      <td>GB</td>
+      <td>1203</td>
+    </tr>
+    <tr>
+      <th>184</th>
+      <td>RU</td>
+      <td>1121</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>DE</td>
+      <td>957</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>FR</td>
+      <td>894</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aggregate-functions-(MIN,-MAX,-MEAN)">
+<a class="anchor" href="#Aggregate-functions-(MIN,-MAX,-MEAN)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Aggregate functions (MIN, MAX, MEAN)<a class="anchor-link" href="#Aggregate-functions-(MIN,-MAX,-MEAN)"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">length_ft</span><span class="p">),</span> 
+         <span class="k">min</span><span class="p">(</span><span class="n">length_ft</span><span class="p">),</span> 
+         <span class="k">avg</span><span class="p">(</span><span class="n">length_ft</span><span class="p">),</span> 
+         <span class="n">median</span><span class="p">(</span><span class="n">length_ft</span><span class="p">)</span>   <span class="c1">-- 사용자정의 함수로 만들었다 치고</span>
+    <span class="k">from</span> <span class="n">runways</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">runways</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>airport_ref</th>
+      <th>airport_ident</th>
+      <th>length_ft</th>
+      <th>width_ft</th>
+      <th>surface</th>
+      <th>lighted</th>
+      <th>closed</th>
+      <th>le_ident</th>
+      <th>le_latitude_deg</th>
+      <th>le_longitude_deg</th>
+      <th>le_elevation_ft</th>
+      <th>le_heading_degT</th>
+      <th>le_displaced_threshold_ft</th>
+      <th>he_ident</th>
+      <th>he_latitude_deg</th>
+      <th>he_longitude_deg</th>
+      <th>he_elevation_ft</th>
+      <th>he_heading_degT</th>
+      <th>he_displaced_threshold_ft</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>269408</td>
+      <td>6523</td>
+      <td>00A</td>
+      <td>80.0</td>
+      <td>80.0</td>
+      <td>ASPH-G</td>
+      <td>1</td>
+      <td>0</td>
+      <td>H1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>255155</td>
+      <td>6524</td>
+      <td>00AK</td>
+      <td>2500.0</td>
+      <td>70.0</td>
+      <td>GRVL</td>
+      <td>0</td>
+      <td>0</td>
+      <td>N</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>254165</td>
+      <td>6525</td>
+      <td>00AL</td>
+      <td>2300.0</td>
+      <td>200.0</td>
+      <td>TURF</td>
+      <td>0</td>
+      <td>0</td>
+      <td>01</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>19</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">runways</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>airport_ref</th>
+      <th>length_ft</th>
+      <th>width_ft</th>
+      <th>lighted</th>
+      <th>closed</th>
+      <th>le_latitude_deg</th>
+      <th>le_longitude_deg</th>
+      <th>le_elevation_ft</th>
+      <th>le_heading_degT</th>
+      <th>le_displaced_threshold_ft</th>
+      <th>he_latitude_deg</th>
+      <th>he_longitude_deg</th>
+      <th>he_elevation_ft</th>
+      <th>he_heading_degT</th>
+      <th>he_displaced_threshold_ft</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>41639.000000</td>
+      <td>41639.000000</td>
+      <td>41443.000000</td>
+      <td>38981.000000</td>
+      <td>41639.000000</td>
+      <td>41639.000000</td>
+      <td>14449.000000</td>
+      <td>14444.000000</td>
+      <td>12235.000000</td>
+      <td>14228.000000</td>
+      <td>2819.000000</td>
+      <td>14434.000000</td>
+      <td>14436.000000</td>
+      <td>12118.000000</td>
+      <td>16043.000000</td>
+      <td>3129.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>257324.082183</td>
+      <td>34094.595163</td>
+      <td>3262.173684</td>
+      <td>110.520125</td>
+      <td>0.260741</td>
+      <td>0.015562</td>
+      <td>31.197196</td>
+      <td>-40.312925</td>
+      <td>1060.108868</td>
+      <td>104.374123</td>
+      <td>534.013480</td>
+      <td>31.194157</td>
+      <td>-40.256715</td>
+      <td>1054.425400</td>
+      <td>261.749082</td>
+      <td>536.128476</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>21373.781124</td>
+      <td>68108.310531</td>
+      <td>2735.615483</td>
+      <td>231.510362</td>
+      <td>0.439044</td>
+      <td>0.123776</td>
+      <td>23.021831</td>
+      <td>79.858731</td>
+      <td>1465.765774</td>
+      <td>57.292638</td>
+      <td>471.867077</td>
+      <td>23.019014</td>
+      <td>79.844299</td>
+      <td>1458.619056</td>
+      <td>78.508982</td>
+      <td>466.220434</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>232758.000000</td>
+      <td>2.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>-75.597200</td>
+      <td>-178.303000</td>
+      <td>-1246.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>-75.595400</td>
+      <td>-178.292000</td>
+      <td>-1210.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>243178.500000</td>
+      <td>8543.500000</td>
+      <td>1700.000000</td>
+      <td>59.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>28.796800</td>
+      <td>-96.667350</td>
+      <td>117.000000</td>
+      <td>57.000000</td>
+      <td>229.500000</td>
+      <td>28.788800</td>
+      <td>-96.642750</td>
+      <td>115.000000</td>
+      <td>226.000000</td>
+      <td>228.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>253593.000000</td>
+      <td>18692.000000</td>
+      <td>2743.000000</td>
+      <td>75.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>37.591200</td>
+      <td>-80.403000</td>
+      <td>571.000000</td>
+      <td>98.700000</td>
+      <td>400.000000</td>
+      <td>37.579950</td>
+      <td>-80.368750</td>
+      <td>565.500000</td>
+      <td>270.000000</td>
+      <td>400.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>264015.500000</td>
+      <td>27430.500000</td>
+      <td>4241.000000</td>
+      <td>100.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>44.277400</td>
+      <td>15.322125</td>
+      <td>1247.000000</td>
+      <td>148.000000</td>
+      <td>685.000000</td>
+      <td>44.272275</td>
+      <td>15.366575</td>
+      <td>1237.000000</td>
+      <td>316.000000</td>
+      <td>699.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>335591.000000</td>
+      <td>335590.000000</td>
+      <td>120000.000000</td>
+      <td>9000.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>82.512800</td>
+      <td>179.337000</td>
+      <td>13202.000000</td>
+      <td>360.000000</td>
+      <td>6365.000000</td>
+      <td>82.522800</td>
+      <td>179.343000</td>
+      <td>13314.000000</td>
+      <td>363.000000</td>
+      <td>5001.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">runways</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s1">'airport_ref'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'min'</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">,</span> <span class="s1">'mean'</span><span class="p">,</span> <span class="s1">'median'</span><span class="p">,</span> <span class="s1">'count'</span><span class="p">,</span> <span class="s1">'std'</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>airport_ref</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>min</th>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>335590.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>34094.595163</td>
+    </tr>
+    <tr>
+      <th>median</th>
+      <td>18692.000000</td>
+    </tr>
+    <tr>
+      <th>count</th>
+      <td>41639.000000</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>68108.310531</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>std</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>airport_ref</th>
+      <td>2.0</td>
+      <td>335590.0</td>
+      <td>34094.595163</td>
+      <td>18692.0</td>
+      <td>41639.0</td>
+      <td>68108.310531</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="JOIN">
+<a class="anchor" href="#JOIN" aria-hidden="true"><span class="octicon octicon-link"></span></a>JOIN<a class="anchor-link" href="#JOIN"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">airport_ident</span><span class="p">,</span> 
+         <span class="n">a</span><span class="p">.</span><span class="k">type</span><span class="p">,</span> 
+         <span class="n">a</span><span class="p">.</span><span class="n">description</span><span class="p">,</span> 
+         <span class="n">frequency_mhz</span> 
+    <span class="k">from</span> <span class="n">airport_freq</span> <span class="k">as</span> <span class="n">a</span> <span class="k">join</span> <span class="n">airports</span> <span class="k">as</span> <span class="n">b</span>
+      <span class="k">on</span> <span class="n">airport_freq</span><span class="p">.</span><span class="n">airport_ref</span> <span class="o">=</span> <span class="n">airports</span><span class="p">.</span><span class="n">id</span> 
+   <span class="k">where</span> <span class="n">airports</span><span class="p">.</span><span class="n">ident</span> <span class="o">=</span> <span class="s1">'KLAX'</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airport_freq</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">ident</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">][[</span><span class="s1">'id'</span><span class="p">]],</span> 
+        <span class="n">left_on</span><span class="o">=</span><span class="s1">'airport_ref'</span><span class="p">,</span> 
+        <span class="n">right_on</span><span class="o">=</span><span class="s1">'id'</span><span class="p">,</span> 
+        <span class="n">how</span><span class="o">=</span><span class="s1">'inner'</span>
+     <span class="p">)[[</span><span class="s1">'airport_ident'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'frequency_mhz'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>airport_ident</th>
+      <th>type</th>
+      <th>description</th>
+      <th>frequency_mhz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>36.07</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>124.30</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>KLAX</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>133.80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>KLAX</td>
+      <td>CLD</td>
+      <td>CLNC DEL</td>
+      <td>121.40</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>KLAX</td>
+      <td>DEP</td>
+      <td>SOCAL DEP</td>
+      <td>124.30</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>KLAX</td>
+      <td>GND</td>
+      <td>GND</td>
+      <td>121.65</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>34.50</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>898.40</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>KLAX</td>
+      <td>OPS</td>
+      <td>AF</td>
+      <td>37.22</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>KLAX</td>
+      <td>TWR</td>
+      <td>TWR</td>
+      <td>119.80</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>KLAX</td>
+      <td>UNIC</td>
+      <td>UNICOM</td>
+      <td>122.95</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">airport_freq</span><span class="p">,</span>
+        <span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">ident</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">][[</span><span class="s1">'id'</span><span class="p">]],</span> 
+        <span class="n">left_on</span><span class="o">=</span><span class="s1">'airport_ref'</span><span class="p">,</span> 
+        <span class="n">right_on</span><span class="o">=</span><span class="s1">'id'</span><span class="p">,</span> 
+        <span class="n">how</span><span class="o">=</span><span class="s1">'inner'</span>
+     <span class="p">)[[</span><span class="s1">'airport_ident'</span><span class="p">,</span> <span class="s1">'type'</span><span class="p">,</span> <span class="s1">'description'</span><span class="p">,</span> <span class="s1">'frequency_mhz'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>airport_ident</th>
+      <th>type</th>
+      <th>description</th>
+      <th>frequency_mhz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>36.07</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>124.30</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>KLAX</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>133.80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>KLAX</td>
+      <td>CLD</td>
+      <td>CLNC DEL</td>
+      <td>121.40</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>KLAX</td>
+      <td>DEP</td>
+      <td>SOCAL DEP</td>
+      <td>124.30</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>KLAX</td>
+      <td>GND</td>
+      <td>GND</td>
+      <td>121.65</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>34.50</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>898.40</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>KLAX</td>
+      <td>OPS</td>
+      <td>AF</td>
+      <td>37.22</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>KLAX</td>
+      <td>TWR</td>
+      <td>TWR</td>
+      <td>119.80</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>KLAX</td>
+      <td>UNIC</td>
+      <td>UNICOM</td>
+      <td>122.95</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="UNION-ALL-and-UNION">
+<a class="anchor" href="#UNION-ALL-and-UNION" aria-hidden="true"><span class="octicon octicon-link"></span></a>UNION ALL and UNION<a class="anchor-link" href="#UNION-ALL-and-UNION"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">select</span> <span class="n">name</span><span class="p">,</span> 
+         <span class="n">municipality</span> 
+    <span class="k">from</span> <span class="n">airports</span> 
+   <span class="k">where</span> <span class="n">ident</span> <span class="o">=</span> <span class="s1">'KLAX'</span> 
+<span class="k">union</span> <span class="k">all</span> 
+  <span class="k">select</span> <span class="n">name</span><span class="p">,</span> 
+         <span class="n">municipality</span> 
+    <span class="k">from</span> <span class="n">airports</span> 
+   <span class="k">where</span> <span class="n">ident</span> <span class="o">=</span> <span class="s1">'KLGB'</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">ident</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">][[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>municipality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>29141</th>
+      <td>Los Angeles International Airport</td>
+      <td>Los Angeles</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">ident</span> <span class="o">==</span> <span class="s1">'KLGB'</span><span class="p">][[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>municipality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>29166</th>
+      <td>Long Beach /Daugherty Field/ Airport</td>
+      <td>Long Beach</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+        <span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">ident</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">][[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]],</span> 
+        <span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">ident</span> <span class="o">==</span> <span class="s1">'KLGB'</span><span class="p">][[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'municipality'</span><span class="p">]]</span>
+    <span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>name</th>
+      <th>municipality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>29141</th>
+      <td>Los Angeles International Airport</td>
+      <td>Los Angeles</td>
+    </tr>
+    <tr>
+      <th>29166</th>
+      <td>Long Beach /Daugherty Field/ Airport</td>
+      <td>Long Beach</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="INSERT">
+<a class="anchor" href="#INSERT" aria-hidden="true"><span class="octicon octicon-link"></span></a>INSERT<a class="anchor-link" href="#INSERT"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">create</span> <span class="k">table</span> <span class="n">heroes</span> <span class="p">(</span><span class="n">id</span> <span class="nb">integer</span><span class="p">,</span> <span class="n">name</span> <span class="nb">text</span><span class="p">);</span>    
+<span class="k">insert</span> <span class="k">into</span> <span class="n">heroes</span> <span class="k">values</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'Harry Potter'</span><span class="p">);</span>  
+<span class="k">insert</span> <span class="k">into</span> <span class="n">heroes</span> <span class="k">values</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'Ron Weasley'</span><span class="p">);</span>   
+<span class="k">insert</span> <span class="k">into</span> <span class="n">heroes</span> <span class="k">values</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s1">'Hermione Granger'</span><span class="p">);</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="s1">'name'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Harry Potter'</span><span class="p">,</span> <span class="s1">'Ron Weasley'</span><span class="p">]})</span>
+<span class="n">df1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Harry Potter</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Ron Weasley</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="s1">'name'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'Hermione Granger'</span><span class="p">]})</span>
+<span class="n">df2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3</td>
+      <td>Hermione Granger</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span> <span class="n">df2</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>Harry Potter</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>Ron Weasley</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>Hermione Granger</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="UPDATE">
+<a class="anchor" href="#UPDATE" aria-hidden="true"><span class="octicon octicon-link"></span></a>UPDATE<a class="anchor-link" href="#UPDATE"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">update</span> <span class="n">airports</span> 
+   <span class="k">set</span> <span class="n">home_link</span> <span class="o">=</span> <span class="s1">'http://www.lawa.org/welcomelax.aspx'</span> 
+ <span class="k">where</span> <span class="n">ident</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="p">[</span><span class="s1">'ident'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">][[</span><span class="s1">'home_link'</span><span class="p">]]</span>
+<span class="c1"># airports[airports.ident == 'KLAX'][['home_link']]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>home_link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>29141</th>
+      <td>https://www.flylax.com/</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">airports</span><span class="p">[</span><span class="s1">'ident'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">,</span> <span class="s1">'home_link'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>29141    https://www.flylax.com/
+Name: home_link, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">airports</span><span class="p">[</span><span class="s1">'ident'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">,</span> <span class="s1">'home_link'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'http://www.lawa.org/welcomelax.aspx'</span>
+<span class="n">airports</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">airports</span><span class="p">[</span><span class="s1">'ident'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">,</span> <span class="s1">'home_link'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>29141    http://www.lawa.org/welcomelax.aspx
+Name: home_link, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'heliport'</span><span class="p">,</span> <span class="s1">'home_link'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'http://haha'</span>
+<span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'heliport'</span><span class="p">][[</span><span class="s1">'ident'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'home_link'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ident</th>
+      <th>name</th>
+      <th>home_link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>00A</td>
+      <td>Total Rf Heliport</td>
+      <td>http://haha</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>00CN</td>
+      <td>Kitchen Creek Helibase Heliport</td>
+      <td>http://haha</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>00FD</td>
+      <td>Ringhaver Heliport</td>
+      <td>http://haha</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>00GE</td>
+      <td>Caffrey Heliport</td>
+      <td>http://haha</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>00HI</td>
+      <td>Kaupulehu Heliport</td>
+      <td>http://haha</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>56988</th>
+      <td>ZA-0117</td>
+      <td>Pumba Helipad</td>
+      <td>http://haha</td>
+    </tr>
+    <tr>
+      <th>56990</th>
+      <td>ZA-0119</td>
+      <td>Cape Town Heliport</td>
+      <td>http://haha</td>
+    </tr>
+    <tr>
+      <th>57011</th>
+      <td>ZA-0140</td>
+      <td>Kuruman Hospital Heliport</td>
+      <td>http://haha</td>
+    </tr>
+    <tr>
+      <th>57108</th>
+      <td>ZIZ</td>
+      <td>Zamzama Heliport</td>
+      <td>http://haha</td>
+    </tr>
+    <tr>
+      <th>57373</th>
+      <td>ZZ-0001</td>
+      <td>Sealand Helipad</td>
+      <td>http://haha</td>
+    </tr>
+  </tbody>
+</table>
+<p>12007 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Immutability">
+<a class="anchor" href="#Immutability" aria-hidden="true"><span class="octicon octicon-link"></span></a>Immutability<a class="anchor-link" href="#Immutability"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="o">.</span><span class="n">home_link</span> <span class="o">=</span> <span class="s1">'http//hoho'</span> <span class="c1"># work</span>
+<span class="n">airports</span><span class="o">.</span><span class="n">home_link</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0        http//hoho
+1        http//hoho
+2        http//hoho
+3        http//hoho
+4        http//hoho
+            ...    
+57371    http//hoho
+57372    http//hoho
+57373    http//hoho
+57374    http//hoho
+57375    http//hoho
+Name: home_link, Length: 57376, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="p">[</span><span class="s1">'ident'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">]</span><span class="o">.</span><span class="n">home_link</span> <span class="o">=</span> <span class="s1">'http//haha'</span> <span class="c1"># not work</span>
+<span class="n">airports</span><span class="p">[</span><span class="n">airports</span><span class="p">[</span><span class="s1">'ident'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">]</span><span class="o">.</span><span class="n">home_link</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>d:\bin\miniconda3\envs\blog\lib\site-packages\pandas\core\generic.py:5159: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  self[name] = value
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>29141    http//hoho
+Name: home_link, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DELETE">
+<a class="anchor" href="#DELETE" aria-hidden="true"><span class="octicon octicon-link"></span></a>DELETE<a class="anchor-link" href="#DELETE"> </a>
+</h2>
+<div class="highlight"><pre><span></span><span class="k">delete</span> <span class="k">from</span> <span class="n">airport_freq</span> 
+      <span class="k">where</span> <span class="k">type</span> <span class="o">=</span> <span class="s1">'MISC'</span><span class="p">;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airport_freq</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'https://ourairports.com/data/airport-frequencies.csv'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airport_freq</span><span class="p">[</span><span class="n">airport_freq</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="s1">'MISC'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>airport_ref</th>
+      <th>airport_ident</th>
+      <th>type</th>
+      <th>description</th>
+      <th>frequency_mhz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>70518</td>
+      <td>6528</td>
+      <td>00CA</td>
+      <td>CTAF</td>
+      <td>CTAF</td>
+      <td>122.90</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>307581</td>
+      <td>6589</td>
+      <td>01FL</td>
+      <td>ARCAL</td>
+      <td>NaN</td>
+      <td>122.90</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>75239</td>
+      <td>6589</td>
+      <td>01FL</td>
+      <td>CTAF</td>
+      <td>CEDAR KNOLL TRAFFIC</td>
+      <td>122.80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>60191</td>
+      <td>6756</td>
+      <td>04CA</td>
+      <td>CTAF</td>
+      <td>CTAF</td>
+      <td>122.90</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>59287</td>
+      <td>6779</td>
+      <td>04MS</td>
+      <td>UNIC</td>
+      <td>UNICOM</td>
+      <td>122.80</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>28903</th>
+      <td>51247</td>
+      <td>27242</td>
+      <td>ZYTL</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>126.65</td>
+    </tr>
+    <tr>
+      <th>28904</th>
+      <td>51248</td>
+      <td>27242</td>
+      <td>ZYTL</td>
+      <td>TWR</td>
+      <td>DALIAN TWR</td>
+      <td>118.25</td>
+    </tr>
+    <tr>
+      <th>28905</th>
+      <td>51243</td>
+      <td>27243</td>
+      <td>ZYTX</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>127.45</td>
+    </tr>
+    <tr>
+      <th>28906</th>
+      <td>51244</td>
+      <td>27243</td>
+      <td>ZYTX</td>
+      <td>TWR</td>
+      <td>SHENYANG TWR</td>
+      <td>118.10</td>
+    </tr>
+    <tr>
+      <th>28907</th>
+      <td>51190</td>
+      <td>27244</td>
+      <td>ZYYJ</td>
+      <td>TWR</td>
+      <td>TWR</td>
+      <td>130.00</td>
+    </tr>
+  </tbody>
+</table>
+<p>26683 rows × 6 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">airport_freq</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">airport_freq</span><span class="p">[</span><span class="n">airport_freq</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'MISC'</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>airport_ref</th>
+      <th>airport_ident</th>
+      <th>type</th>
+      <th>description</th>
+      <th>frequency_mhz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>70518</td>
+      <td>6528</td>
+      <td>00CA</td>
+      <td>CTAF</td>
+      <td>CTAF</td>
+      <td>122.90</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>307581</td>
+      <td>6589</td>
+      <td>01FL</td>
+      <td>ARCAL</td>
+      <td>NaN</td>
+      <td>122.90</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>75239</td>
+      <td>6589</td>
+      <td>01FL</td>
+      <td>CTAF</td>
+      <td>CEDAR KNOLL TRAFFIC</td>
+      <td>122.80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>60191</td>
+      <td>6756</td>
+      <td>04CA</td>
+      <td>CTAF</td>
+      <td>CTAF</td>
+      <td>122.90</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>59287</td>
+      <td>6779</td>
+      <td>04MS</td>
+      <td>UNIC</td>
+      <td>UNICOM</td>
+      <td>122.80</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>28903</th>
+      <td>51247</td>
+      <td>27242</td>
+      <td>ZYTL</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>126.65</td>
+    </tr>
+    <tr>
+      <th>28904</th>
+      <td>51248</td>
+      <td>27242</td>
+      <td>ZYTL</td>
+      <td>TWR</td>
+      <td>DALIAN TWR</td>
+      <td>118.25</td>
+    </tr>
+    <tr>
+      <th>28905</th>
+      <td>51243</td>
+      <td>27243</td>
+      <td>ZYTX</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>127.45</td>
+    </tr>
+    <tr>
+      <th>28906</th>
+      <td>51244</td>
+      <td>27243</td>
+      <td>ZYTX</td>
+      <td>TWR</td>
+      <td>SHENYANG TWR</td>
+      <td>118.10</td>
+    </tr>
+    <tr>
+      <th>28907</th>
+      <td>51190</td>
+      <td>27244</td>
+      <td>ZYYJ</td>
+      <td>TWR</td>
+      <td>TWR</td>
+      <td>130.00</td>
+    </tr>
+  </tbody>
+</table>
+<p>26683 rows × 6 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pandas에서-직접-SQL-구문-실행하기">
+<a class="anchor" href="#Pandas%EC%97%90%EC%84%9C-%EC%A7%81%EC%A0%91-SQL-%EA%B5%AC%EB%AC%B8-%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pandas에서 직접 SQL 구문 실행하기<a class="anchor-link" href="#Pandas%EC%97%90%EC%84%9C-%EC%A7%81%EC%A0%91-SQL-%EA%B5%AC%EB%AC%B8-%EC%8B%A4%ED%96%89%ED%95%98%EA%B8%B0"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span> <span class="o">=</span> <span class="n">airport_freq</span><span class="p">[</span><span class="n">airport_freq</span><span class="o">.</span><span class="n">airport_ident</span> <span class="o">==</span> <span class="s1">'KLAX'</span><span class="p">]</span> \
+                  <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'type'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>airport_ref</th>
+      <th>airport_ident</th>
+      <th>type</th>
+      <th>description</th>
+      <th>frequency_mhz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>11962</th>
+      <td>60776</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>UNIC</td>
+      <td>UNICOM</td>
+      <td>122.95</td>
+    </tr>
+    <tr>
+      <th>11961</th>
+      <td>60775</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>TWR</td>
+      <td>TWR</td>
+      <td>119.80</td>
+    </tr>
+    <tr>
+      <th>11960</th>
+      <td>60774</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>OPS</td>
+      <td>AF</td>
+      <td>37.22</td>
+    </tr>
+    <tr>
+      <th>11958</th>
+      <td>60772</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>34.50</td>
+    </tr>
+    <tr>
+      <th>11959</th>
+      <td>60773</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>898.40</td>
+    </tr>
+    <tr>
+      <th>11957</th>
+      <td>60771</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>GND</td>
+      <td>GND</td>
+      <td>121.65</td>
+    </tr>
+    <tr>
+      <th>11956</th>
+      <td>60770</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>DEP</td>
+      <td>SOCAL DEP</td>
+      <td>124.30</td>
+    </tr>
+    <tr>
+      <th>11955</th>
+      <td>60769</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>CLD</td>
+      <td>CLNC DEL</td>
+      <td>121.40</td>
+    </tr>
+    <tr>
+      <th>11954</th>
+      <td>60768</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>133.80</td>
+    </tr>
+    <tr>
+      <th>11952</th>
+      <td>60767</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>36.07</td>
+    </tr>
+    <tr>
+      <th>11953</th>
+      <td>60766</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>124.30</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install pandasql
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Requirement already satisfied: pandasql in d:\bin\miniconda3\envs\blog\lib\site-packages (0.7.3)
+Requirement already satisfied: pandas in d:\bin\miniconda3\envs\blog\lib\site-packages (from pandasql) (1.1.1)
+Requirement already satisfied: sqlalchemy in d:\bin\miniconda3\envs\blog\lib\site-packages (from pandasql) (1.3.19)
+Requirement already satisfied: numpy in d:\bin\miniconda3\envs\blog\lib\site-packages (from pandasql) (1.19.1)
+Requirement already satisfied: python-dateutil&gt;=2.7.3 in d:\bin\miniconda3\envs\blog\lib\site-packages (from pandas-&gt;pandasql) (2.8.1)
+Requirement already satisfied: pytz&gt;=2017.2 in d:\bin\miniconda3\envs\blog\lib\site-packages (from pandas-&gt;pandasql) (2020.1)
+Requirement already satisfied: six&gt;=1.5 in d:\bin\miniconda3\envs\blog\lib\site-packages (from python-dateutil&gt;=2.7.3-&gt;pandas-&gt;pandasql) (1.15.0)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandasql</span> <span class="k">as</span> <span class="nn">ps</span>
+
+<span class="n">sql</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="s1">  select * </span>
+<span class="s1">    from airport_freq </span>
+<span class="s1">   where airport_ident = 'KLAX' </span>
+<span class="s1">order by type desc;</span>
+<span class="s1">'''</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">sqldf</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>pandas.core.frame.DataFrame</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>airport_ref</th>
+      <th>airport_ident</th>
+      <th>type</th>
+      <th>description</th>
+      <th>frequency_mhz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>60776</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>UNIC</td>
+      <td>UNICOM</td>
+      <td>122.95</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>60775</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>TWR</td>
+      <td>TWR</td>
+      <td>119.80</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>60774</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>OPS</td>
+      <td>AF</td>
+      <td>37.22</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>60772</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>34.50</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>60773</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>MISC</td>
+      <td>CG</td>
+      <td>898.40</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>60771</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>GND</td>
+      <td>GND</td>
+      <td>121.65</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>60770</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>DEP</td>
+      <td>SOCAL DEP</td>
+      <td>124.30</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>60769</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>CLD</td>
+      <td>CLNC DEL</td>
+      <td>121.40</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>60768</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>ATIS</td>
+      <td>ATIS</td>
+      <td>133.80</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>60767</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>36.07</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>60766</td>
+      <td>3632</td>
+      <td>KLAX</td>
+      <td>APP</td>
+      <td>SOCAL APP</td>
+      <td>124.30</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://everlearningemployee.github.io/blog/post/SQL_vs_pandas.html';
+      this.page.identifier = 'https://everlearningemployee.github.io/blog/post/SQL_vs_pandas.html';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://everlearningemployee.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/post/SQL_vs_pandas.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>영고라인</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://www.facebook.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#facebook"></use></svg></a></li><li><a rel="me" href="https://github.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.youtube.com/channel/UCuqelMVE6ZKFhv8tP8n-FkA" target="_blank" title="YouTube"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#youtube"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
