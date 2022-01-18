@@ -10,7 +10,6 @@ Hello :wave: @{_username_}!  Thank you for using fastpages!
 
 ![](https://raw.githubusercontent.com/fastai/fastpages/master/_fastpages_docs/_checkbox.png)
 
-
 ### What to Expect After Merging This PR
 
 - GitHub Actions will build your site, which will take 2-3 minutes to complete.  **This will happen anytime you push changes to the master branch of your repository.**  You can monitor the logs of this if you like on the [Actions tab of your repo](https://github.com/{_username_}/{_repo_name_}/actions).
@@ -21,20 +20,15 @@ If you are not using a custom domain, your website will appear at:
 
 #### https://{_username_}.github.io/{_repo_name_}
 
-
 ## Optional: Using a Custom Domain
 
 1. After merging this PR, add a file named `CNAME` at the root of your repo.  For example, the `fastpages` blog is hosted at `https://fastpages.fast.ai`, which means [our CNAME](https://github.com/fastai/fastpages/blob/master/CNAME) contains the following contents: 
 
-        
     >`fastpages.fast.ai`
-
 
 2. Change the `url` and `baseurl` parameters in your `/_config.yml` file to reflect your custom domain.
 
-
     Wondering how to setup a custom domain?  See [this article](https://dev.to/trentyang/how-to-setup-google-domain-for-github-pages-1p58).  You must add a CNAME file to the root of your master branch for the intructions in the article to work correctly.
-
 
 ## Questions
 

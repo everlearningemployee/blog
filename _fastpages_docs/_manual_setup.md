@@ -11,27 +11,27 @@ These are the setup steps that are automated by [setup.yaml](.github/workflows/s
 4. [Create a branch](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository#creating-a-branch) named `gh-pages`.
 
 5. Change the badges on this README to point to **your** repository instead of `fastai/fastpages`.  Badges are organized in a section at the beginning of this README.  For example, you should replace `fastai` and `fastpages` in the below url:
-
+   
     `![](https://github.com/fastai/fastpages/workflows/CI/badge.svg)`
-
+   
       to
-
+   
     `![](https://github.com/{your-username}/{your-repo-name}/workflows/CI/badge.svg)`
 
 6. Change `baseurl:` in `_config.yaml` to the name of your repository. For example, instead of 
-
+   
     `baseurl: "/fastpages"`
-
+   
     this should be
-
+   
     `baseurl: "/your-repo-name"`
 
 7. Similarly, change the `url:` parameter in `_config.yaml` to the url your blog will be served on.  For example, instead of
-
+   
     `url: "https://fastpages.fast.ai/"`
-
+   
     this should be 
-
+   
     `url: "https://<your-user-name>.github.io"`
 
 8. Read through `_config.yaml` carefully as there may be other options that must be set.  The comments in this file will provide instructions. 
