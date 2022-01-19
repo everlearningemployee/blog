@@ -2,7 +2,7 @@
 title: Stdin, Stdout으로 Junit Test 
 description: 알고리즘 시험볼 때 나는 이게 편해 좋아
 layout: post
-image: 
+image: images/2021-01-26-juit_test_with_stdin_stdout/setIn_setOut.png
 categories: [junit, test, java]
 toc: false
 ---
