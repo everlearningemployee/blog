@@ -2,6 +2,7 @@
 title: Stdin, Stdout으로 Junit Test 
 description: 알고리즘 시험볼 때 나는 이게 편해 좋아
 layout: post
+image: 
 categories: [junit, test, java]
 toc: false
 ---
