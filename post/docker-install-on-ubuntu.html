@@ -10,17 +10,17 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="CentOS보다 쉽다" />
 <meta property="og:description" content="CentOS보다 쉽다" />
-<link rel="canonical" href="https://everlearningemployee.github.io/blog/post/docker-install-on-ubuntu.html" />
-<meta property="og:url" content="https://everlearningemployee.github.io/blog/post/docker-install-on-ubuntu.html" />
+<link rel="canonical" href="https://everlearningemployee.github.io/post/docker-install-on-ubuntu.html" />
+<meta property="og:url" content="https://everlearningemployee.github.io/post/docker-install-on-ubuntu.html" />
 <meta property="og:site_name" content="[공부하는 회사원] 빨강달" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-03-14T00:00:00-05:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Ubuntu에 Docker 설치" />
 <script type="application/ld+json">
-{"url":"https://everlearningemployee.github.io/blog/post/docker-install-on-ubuntu.html","@type":"BlogPosting","headline":"Ubuntu에 Docker 설치","dateModified":"2020-03-14T00:00:00-05:00","datePublished":"2020-03-14T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://everlearningemployee.github.io/blog/post/docker-install-on-ubuntu.html"},"description":"CentOS보다 쉽다","@context":"https://schema.org"}</script>
+{"url":"https://everlearningemployee.github.io/post/docker-install-on-ubuntu.html","@type":"BlogPosting","headline":"Ubuntu에 Docker 설치","dateModified":"2020-03-14T00:00:00-05:00","datePublished":"2020-03-14T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://everlearningemployee.github.io/post/docker-install-on-ubuntu.html"},"description":"CentOS보다 쉽다","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://everlearningemployee.github.io/blog/feed.xml" title="[공부하는 회사원] 빨강달" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://everlearningemployee.github.io/feed.xml" title="[공부하는 회사원] 빨강달" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
@@ -71,7 +71,7 @@ window.onload = wrap_img;
 </head>
 <body><header class="site-header">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">[공부하는 회사원] 빨강달</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/">[공부하는 회사원] 빨강달</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -81,7 +81,7 @@ window.onload = wrap_img;
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -102,10 +102,10 @@ window.onload = wrap_img;
     
       <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
       
-        <a class="category-tags-link" href="/blog/categories/#docker">docker</a>
+        <a class="category-tags-link" href="//categories/#docker">docker</a>
         &nbsp;
       
-        <a class="category-tags-link" href="/blog/categories/#ubuntu">ubuntu</a>
+        <a class="category-tags-link" href="//categories/#ubuntu">ubuntu</a>
         
       
       </p>
@@ -127,8 +127,8 @@ window.onload = wrap_img;
   </div><div id="disqus_thread"></div>
   <script>
     var disqus_config = function () {
-      this.page.url = 'https://everlearningemployee.github.io/blog/post/docker-install-on-ubuntu.html';
-      this.page.identifier = 'https://everlearningemployee.github.io/blog/post/docker-install-on-ubuntu.html';
+      this.page.url = 'https://everlearningemployee.github.io/post/docker-install-on-ubuntu.html';
+      this.page.identifier = 'https://everlearningemployee.github.io/post/docker-install-on-ubuntu.html';
     };
 
     (function() {
@@ -140,21 +140,21 @@ window.onload = wrap_img;
       (d.head || d.body).appendChild(s);
     })();
   </script>
-  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/blog/post/docker-install-on-ubuntu.html" hidden></a>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/post/docker-install-on-ubuntu.html" hidden></a>
 </article>
 
       </div>
     </main><footer class="site-footer h-card">
-  <data class="u-url" href="/blog/"></data>
+  <data class="u-url" href="/"></data>
 
   <div class="wrapper">
 
     <div class="footer-col-wrapper">
       <div class="footer-col">
         <p class="feed-subscribe">
-          <a href="/blog/feed.xml">
+          <a href="/feed.xml">
             <svg class="svg-icon orange">
-              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
             </svg><span>Subscribe</span>
           </a>
         </p>
@@ -164,7 +164,7 @@ window.onload = wrap_img;
       </div>
     </div>
 
-    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://www.facebook.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#facebook"></use></svg></a></li><li><a rel="me" href="https://github.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.youtube.com/channel/UCuqelMVE6ZKFhv8tP8n-FkA" target="_blank" title="YouTube"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#youtube"></use></svg></a></li></ul>
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://www.facebook.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#facebook"></use></svg></a></li><li><a rel="me" href="https://github.com/everlearningemployee" target="_blank" title="everlearningemployee"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://www.youtube.com/channel/UCuqelMVE6ZKFhv8tP8n-FkA" target="_blank" title="YouTube"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#youtube"></use></svg></a></li></ul>
 </div>
 
   </div>
