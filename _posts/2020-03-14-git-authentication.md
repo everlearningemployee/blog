@@ -2,6 +2,7 @@
 title: Git Authentication
 description: "맨날 까먹지..."
 layout: post
+image: https://git-scm.com/images/logo@2x.png
 categories: [git]
 ---
 
