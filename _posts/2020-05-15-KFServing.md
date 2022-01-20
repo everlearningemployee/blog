@@ -3,6 +3,7 @@ title: KFServing
 description: "Kubeflow Serving Solution"
 layout: post
 categories: [Kubeflow, MLServing, MLOps]
+image: images/2020-05-15-KFServing/KFServing-transrofmer.png
 toc: true
 ---
 
