@@ -2,8 +2,10 @@
 title: CANONICAL Multipass
 description: 리눅스 서버 마련이 제일 쉬웠어요
 layout: post
+image: https://assets.ubuntu.com/v1/0698ab2d-muiltipass-promo-header.png
 categories: [Ubuntu, multipass]
 toc: true
+
 ---
 
 ## CANONICAL Multipass
