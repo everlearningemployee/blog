@@ -3,6 +3,7 @@ title: "Kafka를 공부해보자"
 description: "Kafka 정도는 알아줘야지"
 toc: true
 layout: post
+image: https://svn.apache.org/repos/asf/kafka/site/logos/originals/png/WIDE%20-%20Black%20on%20Transparent.png
 categories: [kafka, hello]
 ---
 
@@ -17,10 +18,15 @@ categories: [kafka, hello]
 - [Kafka 운영자가 말하는 Kafka Consumer Group](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=2ahUKEwis4s_no6zlAhUKvZQKHXC1ClQQFjAAegQIARAB&url=http%3A%2F%2Fwww.popit.kr%2Fkafka-consumer-group%2F&usg=AOvVaw2eqTWdayB-QZk7ez_CRru-)
   
   - 컨슈머 그룹 별로 각각 offset이 유지됨
+  
   - 한 번 늘린 Partition은 줄일 수 없음
+  
   - 갯수(Partition) > 갯수(Consumer):
+    
     - 어쨌든 일 함. 특정  Consumer로 일이 쏠림
+  
   - 갯수(Partition) < 갯수(Consumer)
+    
     - 노는 Consumr 생심. 이런 상황 절대 허용할 수 없음
       
       #### ML 적용 전략

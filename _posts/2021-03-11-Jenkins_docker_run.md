@@ -2,6 +2,7 @@
 title: Docker로 Jenkins  실행
 description: 해줄 사람이 없을 때도 있다
 layout: post
+image: https://www.jenkins.io/images/logos/jenkins/jenkins.svg
 categories: [jenkins, docker, dind]
 toc: false
 ---
