@@ -13,12 +13,14 @@
 <link rel="canonical" href="https://everlearningemployee.github.io/blog/post/hello-kafka.html" />
 <meta property="og:url" content="https://everlearningemployee.github.io/blog/post/hello-kafka.html" />
 <meta property="og:site_name" content="[공부하는 회사원] 빨강달" />
+<meta property="og:image" content="https://svn.apache.org/repos/asf/kafka/site/logos/originals/png/WIDE%20-%20Black%20on%20Transparent.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-03-12T00:00:00-05:00" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://svn.apache.org/repos/asf/kafka/site/logos/originals/png/WIDE%20-%20Black%20on%20Transparent.png" />
 <meta property="twitter:title" content="Kafka를 공부해보자" />
 <script type="application/ld+json">
-{"url":"https://everlearningemployee.github.io/blog/post/hello-kafka.html","@type":"BlogPosting","headline":"Kafka를 공부해보자","dateModified":"2020-03-12T00:00:00-05:00","datePublished":"2020-03-12T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://everlearningemployee.github.io/blog/post/hello-kafka.html"},"description":"Kafka 정도는 알아줘야지","@context":"https://schema.org"}</script>
+{"url":"https://everlearningemployee.github.io/blog/post/hello-kafka.html","@type":"BlogPosting","image":"https://svn.apache.org/repos/asf/kafka/site/logos/originals/png/WIDE%20-%20Black%20on%20Transparent.png","headline":"Kafka를 공부해보자","dateModified":"2020-03-12T00:00:00-05:00","datePublished":"2020-03-12T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://everlearningemployee.github.io/blog/post/hello-kafka.html"},"description":"Kafka 정도는 알아줘야지","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://everlearningemployee.github.io/blog/feed.xml" title="[공부하는 회사원] 빨강달" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -155,14 +157,22 @@ window.onload = wrap_img;
     <p><a href="https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=2ahUKEwis4s_no6zlAhUKvZQKHXC1ClQQFjAAegQIARAB&amp;url=http%3A%2F%2Fwww.popit.kr%2Fkafka-consumer-group%2F&amp;usg=AOvVaw2eqTWdayB-QZk7ez_CRru-">Kafka 운영자가 말하는 Kafka Consumer Group</a></p>
 
     <ul>
-      <li>컨슈머 그룹 별로 각각 offset이 유지됨</li>
-      <li>한 번 늘린 Partition은 줄일 수 없음</li>
-      <li>갯수(Partition) &gt; 갯수(Consumer):
+      <li>
+        <p>컨슈머 그룹 별로 각각 offset이 유지됨</p>
+      </li>
+      <li>
+        <p>한 번 늘린 Partition은 줄일 수 없음</p>
+      </li>
+      <li>
+        <p>갯수(Partition) &gt; 갯수(Consumer):</p>
+
         <ul>
           <li>어쨌든 일 함. 특정  Consumer로 일이 쏠림</li>
         </ul>
       </li>
-      <li>갯수(Partition) &lt; 갯수(Consumer)
+      <li>
+        <p>갯수(Partition) &lt; 갯수(Consumer)</p>
+
         <ul>
           <li>
             <p>노는 Consumr 생심. 이런 상황 절대 허용할 수 없음</p>
