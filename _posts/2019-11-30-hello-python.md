@@ -4,11 +4,8 @@ description: "화이팅"
 layout: post
 image: https://img.youtube.com/vi/7wrNy8fPkj4/0.jpg
 categories: [python, vscode, conda, hello]
-
 ---
 
-# 파이썬 기초 5종 세트!!
-
-<iframe width="720" height="405" src="https://www.youtube.com/embed/7wrNy8fPkj4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="90%" src="https://www.youtube.com/embed/7wrNy8fPkj4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [실습 시나리오 + 코드](https://gist.github.com/everlearningemployee/673cf8bc1e817ae4fa695ce38d2331dc)
