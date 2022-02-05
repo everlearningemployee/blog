@@ -6,6 +6,6 @@ image: https://img.youtube.com/vi/7wrNy8fPkj4/mqdefault.jpg
 categories: [python, vscode, conda, hello]
 ---
 
-<iframe width="100%" hight="100%" src="https://www.youtube.com/embed/7wrNy8fPkj4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" height="100%" src="https://www.youtube.com/embed/7wrNy8fPkj4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [실습 시나리오 + 코드](https://gist.github.com/everlearningemployee/673cf8bc1e817ae4fa695ce38d2331dc)
