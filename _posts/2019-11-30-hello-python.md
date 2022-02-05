@@ -5,7 +5,8 @@ layout: post
 image: https://img.youtube.com/vi/7wrNy8fPkj4/mqdefault.jpg
 categories: [python, vscode, conda, hello]
 ---
-
-<iframe width="100%" height="500" src="https://www.youtube.com/embed/7wrNy8fPkj4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div style="position:relative;padding-bottom:56.25%;">
+<iframe width="100%" height="100%" src="https://www.youtube.com/embed/7wrNy8fPkj4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 [실습 시나리오 + 코드](https://gist.github.com/everlearningemployee/673cf8bc1e817ae4fa695ce38d2331dc)
