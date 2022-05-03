@@ -161,17 +161,17 @@ window.onload = wrap_img;
         <p>한 번 늘린 Partition은 줄일 수 없음</p>
       </li>
       <li>
-        <p>갯수(Partition) &gt; 갯수(Consumer):</p>
+        <p>Partition갯수 &gt; Consumer갯수:</p>
 
         <ul>
-          <li>어쨌든 일 함. 특정  Consumer로 일이 쏠림</li>
+          <li>어쨌든 모두 다 일 함. 특정  Consumer로 일이 더 많이 쏠림</li>
         </ul>
       </li>
       <li>
-        <p>갯수(Partition) &lt; 갯수(Consumer)</p>
+        <p>Partition갯수 &lt; Consumer갯수</p>
 
         <ul>
-          <li>노는 Consumr 생심. 이런 상황 절대 허용할 수 없음</li>
+          <li>노는 Consumr 생김. (우리는 이런 상황 절대 허용할 수 없음)</li>
         </ul>
       </li>
     </ul>
@@ -193,7 +193,7 @@ window.onload = wrap_img;
     </ul>
   </li>
   <li>
-    <p>갯수(Parition)과 갯수(Cousumer ) 매핑</p>
+    <p>Partition갯수와 Consumer갯수 매핑</p>
 
     <ul>
       <li>
@@ -206,7 +206,7 @@ window.onload = wrap_img;
             </ul>
           </li>
           <li>1개의 partition은 1개의 consumer만 담당</li>
-          <li>무조건 <strong>갯수(Partition) &gt;= 갯수(Consumer)</strong>로 구성 필요</li>
+          <li>무조건 <strong>Partition갯수 &gt;= Consumer갯수</strong>로 구성 필요</li>
           <li>ML컨수머는 <strong>롱트랜잭션</strong>이므로</li>
         </ul>
       </li>
@@ -242,7 +242,7 @@ window.onload = wrap_img;
             <p>Parition과 Cousumer의 <strong>갯수 매핑</strong> 자체는 실질적으로 의미가 <strong>없음</strong></p>
           </li>
           <li>
-            <p><strong>전제</strong>: Partition에 대한 메시지 배분이 라운드로빈이 아니라, <strong>대기열이 가장 짧은 partition 우선</strong> 
+            <p><strong>전제</strong>: Partition에 대한 메시지 배분이 라운드로빈이 아니라, <strong>대기열이 가장 짧은 partition 우선</strong><br>
   ← Custom Partitioner  구현 필요?    <br>
   ← 이미 준비되어있는 선택할 수 있는 Partitioner 유형이 있을 듯</p>
 
