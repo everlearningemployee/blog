@@ -68,10 +68,10 @@ categories: [kafka, hello]
         ← 이미 준비되어있는 선택할 수 있는 Partitioner 유형이 있을 듯
     
     - Producer 생성 시, partitionerType 설정
-    
-    - default = 0, random = 1, cyclic = 2, keyed = 3, custom = 4
-    
-    - https://github.com/SOHU-Co/kafka-node/issues/1094
+      
+      - default = 0, random = 1, cyclic = 2, keyed = 3, custom = 4
+      
+      - https://github.com/SOHU-Co/kafka-node/issues/1094
     
     - Parition과 Cousumer 각각의 **갯수 자체**가 의미 있음
     
