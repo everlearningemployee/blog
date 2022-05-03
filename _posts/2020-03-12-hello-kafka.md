@@ -39,24 +39,24 @@ categories: [kafka, hello]
 
 - Partition갯수와 Consumer갯수 매핑
   
-  - partition은 consumming 과정이 동기인 듯 
-    
-    - 추정의 이유: 
-      - 1개의 consumer는 1개 이상의 partition에 붙을 수 있으나
-    - 1개의 partition은 1개의 consumer만 담당
-    - 무조건 **Partition갯수 >= Consumer갯수**로 구성 필요
-    - ML컨수머는 **롱트랜잭션**이므로
+  - 1개의 consumer는 1개 이상의 partition에 붙을 수 있으나
+  
+  - 1개의 partition은 1개의 consumer만 담당
+  
+  - 무조건 **Partition갯수 >= Consumer갯수**로 구성 필요
+  
+  - ML컨수머는 **롱트랜잭션**이므로
   
   - **1안) Partition갯수 = Consumer갯수: 1대 1로 갯수를 맞춤**
     
     - Consumer Pod를 **Scaling 하지 않음** (Min == Max)
-      - 장점: 확실
+    - 장점: 확실
     - 단점: Pod 리소스 점유 아까워
   
   - 2안) Partition갯수 = Max(Consumer갯수)
     
     - Consumer Pod를 Scaling 함
-      - 장점: Pod 갯수 필요한 만큼 까지만 떠 있음
+    - 장점: Pod 갯수 필요한 만큼 까지만 떠 있음
     - 단점: 업무 특성 상, Scale Out 시 모델 리스토어를 위하여 Pod ready 시간이 수십초~수분 소요 예상 ← 적절한 선택이 아님
   
   - 3안) Parition과 Cousumer 갯수는 테스트로 적정치 선정
@@ -66,16 +66,16 @@ categories: [kafka, hello]
     - **전제**: Partition에 대한 메시지 배분이 라운드로빈이 아니라, **대기열이 가장 짧은 partition 우선**  
         ← Custom Partitioner  구현 필요?      
         ← 이미 준비되어있는 선택할 수 있는 Partitioner 유형이 있을 듯
-      
-      - Producer 생성 시, partitionerType 설정
-        
-        - default = 0, random = 1, cyclic = 2, keyed = 3, custom = 4
-      
-      - https://github.com/SOHU-Co/kafka-node/issues/1094
-      
-      - Parition과 Cousumer 각각의 **갯수 자체**가 의미 있음
-      
-      - 구찮... 3)안은 못 쓰겠다.
+    
+    - Producer 생성 시, partitionerType 설정
+    
+    - default = 0, random = 1, cyclic = 2, keyed = 3, custom = 4
+    
+    - https://github.com/SOHU-Co/kafka-node/issues/1094
+    
+    - Parition과 Cousumer 각각의 **갯수 자체**가 의미 있음
+    
+    - 구찮... 3)안은 못 쓰겠다.
 
 # 이슈
 
