@@ -118,11 +118,8 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#prestop-hook">PreStop Hook</a></li>
-<li class="toc-entry toc-h1"><a href="#consumer-group--partition">Consumer Group / Partition</a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#ml-적용-전략">ML 적용 전략</a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h1"><a href="#consumer-group--partition">Consumer Group / Partition</a></li>
+<li class="toc-entry toc-h1"><a href="#ml현-투입과제-적용-전략">ML(현 투입과제) 적용 전략</a></li>
 <li class="toc-entry toc-h1"><a href="#이슈">이슈</a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#partitioner-type">Partitioner Type</a></li>
@@ -174,16 +171,17 @@ window.onload = wrap_img;
         <p>갯수(Partition) &lt; 갯수(Consumer)</p>
 
         <ul>
-          <li>
-            <p>노는 Consumr 생심. 이런 상황 절대 허용할 수 없음</p>
-
-            <h4 id="ml-적용-전략">
-<a class="anchor" href="#ml-%EC%A0%81%EC%9A%A9-%EC%A0%84%EB%9E%B5" aria-hidden="true"><span class="octicon octicon-link"></span></a>ML 적용 전략</h4>
-          </li>
+          <li>노는 Consumr 생심. 이런 상황 절대 허용할 수 없음</li>
         </ul>
       </li>
     </ul>
   </li>
+</ul>
+
+<h1 id="ml현-투입과제-적용-전략">
+<a class="anchor" href="#ml%ED%98%84-%ED%88%AC%EC%9E%85%EA%B3%BC%EC%A0%9C-%EC%A0%81%EC%9A%A9-%EC%A0%84%EB%9E%B5" aria-hidden="true"><span class="octicon octicon-link"></span></a>ML(현 투입과제) 적용 전략</h1>
+
+<ul>
   <li>
     <p>K8s에 ML Logic Consumer Pod가 배포됐다고 치자</p>
   </li>
@@ -213,7 +211,7 @@ window.onload = wrap_img;
         </ul>
       </li>
       <li>
-        <p><strong>1안) 갯수(Partition) = 갯수(Consumer): 1대 1로 갯수를 맞춤</strong></p>
+        <p><strong>1안) Partition갯수 = Consumer갯수: 1대 1로 갯수를 맞춤</strong></p>
 
         <ul>
           <li>Consumer Pod를 <strong>Scaling 하지 않음</strong> (Min == Max)
@@ -225,7 +223,7 @@ window.onload = wrap_img;
         </ul>
       </li>
       <li>
-        <p>2안) 갯수(Partition) = Max(갯수(Consumer))</p>
+        <p>2안) Partition갯수 = Max(Consumer갯수)</p>
 
         <ul>
           <li>Consumer Pod를 Scaling 함
@@ -244,13 +242,9 @@ window.onload = wrap_img;
             <p>Parition과 Cousumer의 <strong>갯수 매핑</strong> 자체는 실질적으로 의미가 <strong>없음</strong></p>
           </li>
           <li>
-            <p><strong>전제</strong>: Partition에 대한 메시지 배분이 라운드로빈이 아니라, <strong>대기열이 가장 짧은 partition 우선</strong></p>
-
-            <div class="language-plaintext highlighter-rouge">
-<div class="highlight"><pre class="highlight"><code>← Custom Partitioner  구현 필요?
-</code></pre></div>            </div>
-
-            <p>← 이미 준비되어있는 선택할 수 있는 Partitioner 유형이 있을 듯</p>
+            <p><strong>전제</strong>: Partition에 대한 메시지 배분이 라운드로빈이 아니라, <strong>대기열이 가장 짧은 partition 우선</strong> 
+  ← Custom Partitioner  구현 필요?    <br>
+  ← 이미 준비되어있는 선택할 수 있는 Partitioner 유형이 있을 듯</p>
 
             <ul>
               <li>
