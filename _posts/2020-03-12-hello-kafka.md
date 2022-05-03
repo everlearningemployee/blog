@@ -28,8 +28,8 @@ categories: [kafka, hello]
   - 갯수(Partition) < 갯수(Consumer)
     
     - 노는 Consumr 생심. 이런 상황 절대 허용할 수 없음
-      
-      #### ML 적용 전략
+
+# ML(현 투입과제) 적용 전략
 
 - K8s에 ML Logic Consumer Pod가 배포됐다고 치자
 
@@ -47,13 +47,13 @@ categories: [kafka, hello]
     - 무조건 **갯수(Partition) >= 갯수(Consumer)**로 구성 필요
     - ML컨수머는 **롱트랜잭션**이므로
   
-  - **1안) 갯수(Partition) = 갯수(Consumer): 1대 1로 갯수를 맞춤**
+  - **1안) Partition갯수 = Consumer갯수: 1대 1로 갯수를 맞춤**
     
     - Consumer Pod를 **Scaling 하지 않음** (Min == Max)
       - 장점: 확실
     - 단점: Pod 리소스 점유 아까워
   
-  - 2안) 갯수(Partition) = Max(갯수(Consumer))
+  - 2안) Partition갯수 = Max(Consumer갯수)
     
     - Consumer Pod를 Scaling 함
       - 장점: Pod 갯수 필요한 만큼 까지만 떠 있음
@@ -64,9 +64,7 @@ categories: [kafka, hello]
     - Parition과 Cousumer의 **갯수 매핑** 자체는 실질적으로 의미가 **없음**
     
     - **전제**: Partition에 대한 메시지 배분이 라운드로빈이 아니라, **대기열이 가장 짧은 partition 우선** 
-      
-          ← Custom Partitioner  구현 필요?
-      
+        ← Custom Partitioner  구현 필요?      
         ← 이미 준비되어있는 선택할 수 있는 Partitioner 유형이 있을 듯
       
       - Producer 생성 시, partitionerType 설정
