@@ -197,28 +197,23 @@ window.onload = wrap_img;
 
     <ul>
       <li>
-        <p>partition은 consumming 과정이 동기인 듯</p>
-
-        <ul>
-          <li>추정의 이유:
-            <ul>
-              <li>1개의 consumer는 1개 이상의 partition에 붙을 수 있으나</li>
-            </ul>
-          </li>
-          <li>1개의 partition은 1개의 consumer만 담당</li>
-          <li>무조건 <strong>Partition갯수 &gt;= Consumer갯수</strong>로 구성 필요</li>
-          <li>ML컨수머는 <strong>롱트랜잭션</strong>이므로</li>
-        </ul>
+        <p>1개의 consumer는 1개 이상의 partition에 붙을 수 있으나</p>
+      </li>
+      <li>
+        <p>1개의 partition은 1개의 consumer만 담당</p>
+      </li>
+      <li>
+        <p>무조건 <strong>Partition갯수 &gt;= Consumer갯수</strong>로 구성 필요</p>
+      </li>
+      <li>
+        <p>ML컨수머는 <strong>롱트랜잭션</strong>이므로</p>
       </li>
       <li>
         <p><strong>1안) Partition갯수 = Consumer갯수: 1대 1로 갯수를 맞춤</strong></p>
 
         <ul>
-          <li>Consumer Pod를 <strong>Scaling 하지 않음</strong> (Min == Max)
-            <ul>
-              <li>장점: 확실</li>
-            </ul>
-          </li>
+          <li>Consumer Pod를 <strong>Scaling 하지 않음</strong> (Min == Max)</li>
+          <li>장점: 확실</li>
           <li>단점: Pod 리소스 점유 아까워</li>
         </ul>
       </li>
@@ -226,11 +221,8 @@ window.onload = wrap_img;
         <p>2안) Partition갯수 = Max(Consumer갯수)</p>
 
         <ul>
-          <li>Consumer Pod를 Scaling 함
-            <ul>
-              <li>장점: Pod 갯수 필요한 만큼 까지만 떠 있음</li>
-            </ul>
-          </li>
+          <li>Consumer Pod를 Scaling 함</li>
+          <li>장점: Pod 갯수 필요한 만큼 까지만 떠 있음</li>
           <li>단점: 업무 특성 상, Scale Out 시 모델 리스토어를 위하여 Pod ready 시간이 수십초~수분 소요 예상 ← 적절한 선택이 아님</li>
         </ul>
       </li>
@@ -245,25 +237,21 @@ window.onload = wrap_img;
             <p><strong>전제</strong>: Partition에 대한 메시지 배분이 라운드로빈이 아니라, <strong>대기열이 가장 짧은 partition 우선</strong><br>
   ← Custom Partitioner  구현 필요?    <br>
   ← 이미 준비되어있는 선택할 수 있는 Partitioner 유형이 있을 듯</p>
-
-            <ul>
-              <li>
-                <p>Producer 생성 시, partitionerType 설정</p>
-
-                <ul>
-                  <li>default = 0, random = 1, cyclic = 2, keyed = 3, custom = 4</li>
-                </ul>
-              </li>
-              <li>
-                <p>https://github.com/SOHU-Co/kafka-node/issues/1094</p>
-              </li>
-              <li>
-                <p>Parition과 Cousumer 각각의 <strong>갯수 자체</strong>가 의미 있음</p>
-              </li>
-              <li>
-                <p>구찮… 3)안은 못 쓰겠다.</p>
-              </li>
-            </ul>
+          </li>
+          <li>
+            <p>Producer 생성 시, partitionerType 설정</p>
+          </li>
+          <li>
+            <p>default = 0, random = 1, cyclic = 2, keyed = 3, custom = 4</p>
+          </li>
+          <li>
+            <p>https://github.com/SOHU-Co/kafka-node/issues/1094</p>
+          </li>
+          <li>
+            <p>Parition과 Cousumer 각각의 <strong>갯수 자체</strong>가 의미 있음</p>
+          </li>
+          <li>
+            <p>구찮… 3)안은 못 쓰겠다.</p>
           </li>
         </ul>
       </li>
