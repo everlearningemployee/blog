@@ -21,13 +21,13 @@ categories: [kafka, hello]
   
   - 한 번 늘린 Partition은 줄일 수 없음
   
-  - 갯수(Partition) > 갯수(Consumer):
+  - Partition갯수 > Consumer갯수:
     
-    - 어쨌든 일 함. 특정  Consumer로 일이 쏠림
+    - 어쨌든 모두 다 일 함. 특정  Consumer로 일이 더 많이 쏠림
   
-  - 갯수(Partition) < 갯수(Consumer)
+  - Partition갯수 < Consumer갯수
     
-    - 노는 Consumr 생심. 이런 상황 절대 허용할 수 없음
+    - 노는 Consumr 생김. (우리는 이런 상황 절대 허용할 수 없음)
 
 # ML(현 투입과제) 적용 전략
 
@@ -37,14 +37,14 @@ categories: [kafka, hello]
   
   - 중복 처리 X이므로 여러 Consumer들이 Offset을 공유해야함
 
-- 갯수(Parition)과 갯수(Cousumer ) 매핑
+- Partition갯수와 Consumer갯수 매핑
   
   - partition은 consumming 과정이 동기인 듯 
     
     - 추정의 이유: 
       - 1개의 consumer는 1개 이상의 partition에 붙을 수 있으나
     - 1개의 partition은 1개의 consumer만 담당
-    - 무조건 **갯수(Partition) >= 갯수(Consumer)**로 구성 필요
+    - 무조건 **Partition갯수 >= Consumer갯수**로 구성 필요
     - ML컨수머는 **롱트랜잭션**이므로
   
   - **1안) Partition갯수 = Consumer갯수: 1대 1로 갯수를 맞춤**
@@ -63,7 +63,7 @@ categories: [kafka, hello]
     
     - Parition과 Cousumer의 **갯수 매핑** 자체는 실질적으로 의미가 **없음**
     
-    - **전제**: Partition에 대한 메시지 배분이 라운드로빈이 아니라, **대기열이 가장 짧은 partition 우선** 
+    - **전제**: Partition에 대한 메시지 배분이 라운드로빈이 아니라, **대기열이 가장 짧은 partition 우선**  
         ← Custom Partitioner  구현 필요?      
         ← 이미 준비되어있는 선택할 수 있는 Partitioner 유형이 있을 듯
       
