@@ -40,7 +40,7 @@ deb http://ubuntu.mirror.xxx.net/ubuntu bionic-security multiverse
 - 전체 사용자: `/etc/pip.conf`
 - 개별 사용자:
   - Unix/MacOS: `${HOME}/.pip/pip.conf `
-  - Windows: `%HOME%\pip\pip.ini`
+  - Windows: `%USERPROFILE%\pip\pip.ini`
 
 설정파일 샘플
 

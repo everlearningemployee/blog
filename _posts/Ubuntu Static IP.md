@@ -128,3 +128,7 @@ $ ip -j route | jq
   }
 ]
 ```
+
+## 기타
+
+- [WSL2 활용도를 높여주는 고정 IP 설정 | 요즘IT (wishket.com)](https://yozm.wishket.com/magazine/detail/1386/?fbclid=IwAR0jHhB3R60Pn-mlauxao4pSvRwDuHRuQNTO5cytFDqkHjhZSMMfZe3N-cA)
